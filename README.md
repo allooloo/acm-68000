@@ -34,28 +34,28 @@ One query. One resolved state. No interpretation required.
 ## Query the Resolver
 
 ```bash
-# Query by GTIN
-curl "https://resolver.aio-resolver.com/resolve?gtin=00990832300006&jurisdiction=EU"
+# Live SKU — TreeFree Core econoLiite Disposable Baby Diapers
+curl "https://resolver.aio-resolver.com/resolve?sku=ZTPL-10060-OP"
 
-# Query by SKU
+# Live SKU — TreeFree Core Pant Diapers
+curl "https://resolver.aio-resolver.com/resolve?sku=ZTPL-10060-PT"
+
+# Virtual demo SKU — for agent testing and integration development
 curl "https://resolver.aio-resolver.com/resolve?sku=ZTPL-D"
 
 # Protocol metadata
 curl "https://resolver.aio-resolver.com/protocol"
 ```
 
-**Response:**
+**Live response:**
 ```json
 {
-  "protocol"    : "ACM-68000",
-  "version"     : "1.2",
-  "object_id"   : "GTIN:00990832300006",
-  "jurisdiction": "EU",
-  "acm_signal"  : "ACM-200",
-  "state"       : "ALLOW",
-  "timestamp"   : "2026-03-14T00:00:00Z",
-  "resolver"    : "RCO-10060",
-  "dpu_uri"     : "dpu://eco-10060.org/es/2026-03-14/43777"
+  "resolver" : "resolver.aio-resolver.com",
+  "protocol" : "ACM-68000",
+  "version"  : "1.2",
+  "sku"      : "ZTPL-10060-OP",
+  "signal"   : "ACM-200",
+  "state"    : "ALLOW"
 }
 ```
 
@@ -124,3 +124,4 @@ The AIO-TFX Rail — the non-lignocellulosic hygiene vertical execution rail —
 
 *Allooloo Technologies Corp. · Vancouver · Paris · Barcelona*  
 *[allooloo.ai](https://www.allooloo.ai) · [licensing@allooloo.ai](mailto:licensing@allooloo.ai)*
+
