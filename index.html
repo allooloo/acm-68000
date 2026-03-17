@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/matth/Downloads/index_2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACM-68000 · Allooloo Technologies</title>
+<meta name="description" content="The Signal Layer for Agentic Commerce. One deterministic signal. The external oracle AI agents cannot hallucinate past.">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #06090f;
+    --bg-1:      #0c1018;
+    --bg-2:      #111720;
+    --border:    rgba(255,255,255,0.07);
+    --border-hi: rgba(255,255,255,0.14);
+    --text:      #e8edf5;
+    --muted:     #5a6478;
+    --dim:       #8a95a8;
+
+    --allow:     #00e676;
+    --restrict:  #ff4c4c;
+    --cond:      #ffab00;
+    --escalate:  #40c4ff;
+    --notfound:  #7c83a0;
+    --error:     #ff6d00;
+    --na:        #546e7a;
+
+    --mono: 'IBM Plex Mono', monospace;
+    --head: 'Barlow Condensed', sans-serif;
+    --body: 'Barlow', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID LINES BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 56px;
+    background: rgba(6,9,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo {
+    width: 28px;
+    height: 28px;
+    background: var(--allow);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-logo span {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: #06090f;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-name {
+    font-family: var(--head);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border: 1px solid var(--allow);
+    color: var(--allow);
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── MAIN ── */
+  main { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding-top: 56px;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 6rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .hero-kicker {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--allow);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-kicker::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--allow);
+  }
+
+  .hero-h1 {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: clamp(52px, 6vw, 80px);
+    line-height: 0.92;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-h1 .accent { color: var(--allow); }
+
+  .hero-sub {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--dim);
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .hero-sub strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    padding: 10px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-primary {
+    background: var(--allow);
+    color: #06090f;
+    border: 1px solid var(--allow);
+    font-weight: 500;
+  }
+
+  .btn-primary:hover { background: #33eb91; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--dim);
+    border: 1px solid var(--border-hi);
+  }
+
+  .btn-ghost:hover { border-color: var(--allow); color: var(--allow); }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 6rem 6rem 4rem;
+    background: var(--bg-1);
+  }
+
+  .terminal {
+    background: var(--bg);
+    border: 1px solid var(--border-hi);
+    border-radius: 4px;
+    overflow: hidden;
+    font-family: var(--mono);
+  }
+
+  .terminal-bar {
+    padding: 10px 14px;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .terminal-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: auto;
+    letter-spacing: 0.5px;
+  }
+
+  .terminal-body { padding: 1.25rem 1.5rem; }
+
+  .t-prompt { color: var(--allow); }
+  .t-cmd { color: var(--text); }
+  .t-key { color: var(--escalate); }
+  .t-str { color: var(--cond); }
+  .t-num { color: var(--allow); }
+  .t-punc { color: var(--dim); }
+  .t-comment { color: var(--muted); font-style: italic; }
+
+  .terminal-body pre {
+    font-size: 12.5px;
+    line-height: 1.8;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .resp-block {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── SIGNAL BAR ── */
+  .signal-bar {
+    background: var(--bg-1);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 6rem;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .sig-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 2rem;
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .sig-item:first-child { padding-left: 0; }
+  .sig-item:last-child { border-right: none; }
+
+  .sig-code {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .sig-label {
+    font-family: var(--body);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section { padding: 6rem 6rem; position: relative; }
+  .section + .section { border-top: 1px solid var(--border); }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-h2 {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: clamp(36px, 4vw, 52px);
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 17px;
+    color: var(--dim);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* ── WHY SECTION ── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .why-card {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.2s;
+  }
+
+  .why-card:hover { background: var(--bg-1); }
+
+  .why-number {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 48px;
+    color: var(--allow);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .why-label {
+    font-family: var(--body);
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .why-text {
+    font-size: 15px;
+    color: var(--dim);
+    line-height: 1.65;
+  }
+
+  /* ── SIGNALS TABLE ── */
+  .signals-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .signal-row {
+    display: grid;
+    grid-template-columns: 140px 120px 1fr;
+    align-items: center;
+    gap: 0;
+    background: var(--bg);
+    padding: 0;
+    transition: background 0.2s;
+  }
+
+  .signal-row:hover { background: var(--bg-1); }
+
+  .signal-row:first-child { border-radius: 3px 3px 0 0; }
+
+  .sr-code {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 1.1rem 1.5rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .sr-state {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 1.1rem 1.5rem;
+    border-right: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .sr-desc {
+    font-size: 14px;
+    padding: 1.1rem 1.5rem;
+    color: var(--dim);
+  }
+
+  /* ── CODE SAMPLES ── */
+  .code-tabs {
+    border: 1px solid var(--border-hi);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .code-tab-bar {
+    display: flex;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab-btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    border-right: 1px solid var(--border);
+    letter-spacing: 0.5px;
+    transition: all 0.15s;
+  }
+
+  .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .tab-btn.active { color: var(--allow); background: rgba(0,230,118,0.06); }
+
+  .code-panel { display: none; padding: 1.5rem 2rem; }
+  .code-panel.active { display: block; }
+
+  .code-panel pre {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.85;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  /* ── INFRA GRID ── */
+  .infra-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 3rem;
+  }
+
+  .infra-card {
+    background: var(--bg);
+    padding: 1.75rem 2rem;
+  }
+
+  .infra-key {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .infra-val {
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .infra-val.green { color: var(--allow); }
+  .infra-val.blue  { color: var(--escalate); }
+
+  /* ── LINKS SECTION ── */
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 2.5rem;
+  }
+
+  .link-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    background: var(--bg-1);
+    transition: all 0.2s;
+  }
+
+  .link-card:hover {
+    border-color: var(--allow);
+    background: rgba(0,230,118,0.04);
+  }
+
+  .link-card-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .link-card-url {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--allow);
+  }
+
+  .link-card-desc {
+    font-size: 13px;
+    color: var(--dim);
+    margin-top: 4px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-left {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .footer-right {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-right a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-right a:hover { color: var(--text); }
+
+  /* ── COPY BUTTON ── */
+  .copy-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    background: transparent;
+    border: 1px solid var(--border-hi);
+    color: var(--muted);
+    border-radius: 2px;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .copy-btn:hover { border-color: var(--allow); color: var(--allow); }
+
+  /* ── BADGE ROW ── */
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-mit  { background: rgba(0,230,118,0.1);  color: var(--allow);   border: 1px solid rgba(0,230,118,0.2); }
+  .badge-prot { background: rgba(64,196,255,0.1); color: var(--escalate); border: 1px solid rgba(64,196,255,0.2); }
+  .badge-live { background: rgba(0,230,118,0.1);  color: var(--allow);   border: 1px solid rgba(0,230,118,0.2); }
+  .badge-ver  { background: rgba(122,116,163,0.15); color: #9b94d4;       border: 1px solid rgba(122,116,163,0.25); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 4rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .hero-right { padding: 3rem 2rem; }
+    .why-grid { grid-template-columns: 1fr; }
+    .signal-row { grid-template-columns: 120px 1fr; }
+    .sr-state { display: none; }
+    .section { padding: 4rem 2rem; }
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .signal-bar { padding: 1rem 2rem; }
+    footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-brand" href="file:///C:/Users/matth/Downloads/index_1.html#">
+    <div class="nav-logo"><span>ACM</span></div>
+    <span class="nav-name">Allooloo</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="file:///C:/Users/matth/Downloads/index_1.html#signals">Signals</a></li>
+    <li><a href="file:///C:/Users/matth/Downloads/index_1.html#integrate">Integrate</a></li>
+    <li><a href="file:///C:/Users/matth/Downloads/index_1.html#infra">Infrastructure</a></li>
+    <li><a href="https://github.com/allooloo">GitHub</a></li>
+    <li><a href="https://allooloo.ai/license">License</a></li>
+  </ul>
+  <span class="nav-badge">ACM-200 ALLOW</span>
+</nav>
+
+<main>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-kicker">Protocol ACM-68000 · v1.2</div>
+
+    <div class="badge-row">
+      <span class="badge badge-mit">MIT</span>
+      <span class="badge badge-prot">ACM-68000</span>
+      <span class="badge badge-live">● resolver live</span>
+      <span class="badge badge-ver">v1.2</span>
+    </div>
+
+    <h1 class="hero-h1">
+      The Signal<br>
+      Layer for<br>
+      <span class="accent">Agentic</span><br>
+      Commerce
+    </h1>
+
+    <p class="hero-sub">
+      One <strong>deterministic signal.</strong><br>
+      The external oracle AI agents<br>
+      cannot hallucinate past.
+    </p>
+
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="file:///C:/Users/matth/Downloads/index_1.html#integrate">→ Start integrating</a>
+      <a class="btn btn-ghost" href="https://resolver.aio-resolver.com/protocol" target="_blank">Protocol metadata ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="terminal-label">resolver.aio-resolver.com · sub-40ms</span>
+      </div>
+      <div class="terminal-body">
+        <pre><span class="t-comment"># No API key. No account. No setup.</span>
+
+<span class="t-prompt">$</span> <span class="t-cmd">curl</span> <span class="t-str">"https://resolver.aio-resolver.com/resolve?sku=ZTPL-D"</span>
+
+<span class="resp-block"><span class="t-punc">{</span>
+  <span class="t-key">"resolver"</span><span class="t-punc">:</span>  <span class="t-str">"resolver.aio-resolver.com"</span><span class="t-punc">,</span>
+  <span class="t-key">"protocol"</span><span class="t-punc">:</span>  <span class="t-str">"ACM-68000"</span><span class="t-punc">,</span>
+  <span class="t-key">"version"</span><span class="t-punc">:</span>   <span class="t-str">"1.2"</span><span class="t-punc">,</span>
+  <span class="t-key">"sku"</span><span class="t-punc">:</span>       <span class="t-str">"ZTPL-D"</span><span class="t-punc">,</span>
+  <span class="t-key">"signal"</span><span class="t-punc">:</span>    <span class="t-str">"ACM-200"</span><span class="t-punc">,</span>
+  <span class="t-key">"state"</span><span class="t-punc">:</span>     <span class="t-num">"ALLOW"</span>
+<span class="t-punc">}</span></span></pre>
+      </div>
+    </div>
+
+    <p style="margin-top:1.25rem; font-family: var(--mono); font-size: 12px; color: var(--muted);">
+      → Run the curl. ACM-200 ALLOW comes back in under 40ms.<br>
+      → You understand the protocol in 10 seconds.
+    </p>
+  </div>
+</section>
+
+<!-- ── SIGNAL TICKER ── -->
+<div class="signal-bar">
+  <div class="sig-item">
+    <span class="sig-code" style="color:var(--allow)">ACM-200</span>
+    <span class="sig-label">ALLOW</span>
+  </div>
+  <div class="sig-item">
+    <span class="sig-code" style="color:var(--restrict)">ACM-403</span>
+    <span class="sig-label">RESTRICT</span>
+  </div>
+  <div class="sig-item">
+    <span class="sig-code" style="color:var(--cond)">ACM-300</span>
+    <span class="sig-label">CONDITIONAL</span>
+  </div>
+  <div class="sig-item">
+    <span class="sig-code" style="color:var(--escalate)">ACM-451</span>
+    <span class="sig-label">ESCALATE</span>
+  </div>
+  <div class="sig-item">
+    <span class="sig-code" style="color:var(--notfound)">ACM-404</span>
+    <span class="sig-label">NOT_FOUND</span>
+  </div>
+  <div class="sig-item">
+    <span class="sig-code" style="color:var(--error)">ACM-500</span>
+    <span class="sig-label">SYSTEM_ERROR</span>
+  </div>
+  <div class="sig-item">
+    <span class="sig-code" style="color:var(--na)">ACM-000</span>
+    <span class="sig-label">NOT_APPLICABLE</span>
+  </div>
+</div>
+
+<!-- ── WHY ── -->
+<section class="section">
+  <div class="section-tag">The Problem</div>
+  <h2 class="section-h2">Compounding<br>drift is fatal</h2>
+  <p class="section-sub">
+    AI procurement agents inside SAP, Oracle, and Microsoft Dynamics are executing purchase orders autonomously today. Prompting, RAG, and fine-tuning cannot fix compounding drift. You need a hard compliance rail that lives outside the LLM.
+  </p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-number">5%</div>
+      <div class="why-label">Per-step hallucination rate</div>
+      <div class="why-text">Even a well-tuned model accumulates errors at each step of a multi-step agentic workflow.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-number">64%</div>
+      <div class="why-label">Failure rate at 20 steps</div>
+      <div class="why-text">A 5% per-step error in a 20-step agent workflow produces a 64% overall failure rate. Compounding is brutal.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-number" style="color:var(--allow)">1</div>
+      <div class="why-label">Signal. One action.</div>
+      <div class="why-text">ACM-68000 is a deterministic oracle external to the model. No prompt engineering. No drift. One signal, one action.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SIGNALS ── -->
+<section class="section" id="signals">
+  <div class="section-tag">Signal Taxonomy</div>
+  <h2 class="section-h2">Seven signals.<br>Finite. Deterministic.</h2>
+  <p class="section-sub">
+    No semantic parsing required. Every possible outcome in agentic commerce maps to exactly one of seven signals.
+  </p>
+
+  <div class="signals-grid">
+    <div class="signal-row">
+      <div class="sr-code" style="color:var(--allow)">ACM-200</div>
+      <div class="sr-state">ALLOW</div>
+      <div class="sr-desc">Agent may execute the commercial action</div>
+    </div>
+    <div class="signal-row">
+      <div class="sr-code" style="color:var(--restrict)">ACM-403</div>
+      <div class="sr-state">RESTRICT</div>
+      <div class="sr-desc">Action blocked under current conditions</div>
+    </div>
+    <div class="signal-row">
+      <div class="sr-code" style="color:var(--cond)">ACM-300</div>
+      <div class="sr-state">CONDITIONAL</div>
+      <div class="sr-desc">Action requires additional conditions</div>
+    </div>
+    <div class="signal-row">
+      <div class="sr-code" style="color:var(--escalate)">ACM-451</div>
+      <div class="sr-state">ESCALATE</div>
+      <div class="sr-desc">Human-in-the-loop required</div>
+    </div>
+    <div class="signal-row">
+      <div class="sr-code" style="color:var(--notfound)">ACM-404</div>
+      <div class="sr-state">NOT_FOUND</div>
+      <div class="sr-desc">Object not registered in any signal cluster</div>
+    </div>
+    <div class="signal-row">
+      <div class="sr-code" style="color:var(--error)">ACM-500</div>
+      <div class="sr-state">SYSTEM_ERROR</div>
+      <div class="sr-desc">Infrastructure failure — retry or fallback</div>
+    </div>
+    <div class="signal-row">
+      <div class="sr-code" style="color:var(--na)">ACM-000</div>
+      <div class="sr-state">NOT_APPLICABLE</div>
+      <div class="sr-desc">Signal does not govern this SKU or context</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATE MACHINE ── -->
+<section class="section" id="state-machine">
+  <div class="section-tag">Signal Dispatch Graph</div>
+  <h2 class="section-h2">Every path.<br>Fully mapped.</h2>
+  <p class="section-sub">
+    The complete state machine. Every possible outcome in agentic commerce routes through one deterministic signal to one terminal action. Zero ambiguity. Zero hallucination path.
+  </p>
+
+  <div style="border: 1px solid var(--border-hi); border-radius: 4px; padding: 2rem 1.5rem 1.5rem; background: var(--bg); overflow-x: auto;">
+    <svg viewBox="0 0 960 420" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:680px; display:block;">
+      <defs>
+        <marker id="arrGray" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#5a6478"></path>
+        </marker>
+      </defs>
+
+      <!-- ══ AGENT ══ -->
+      <rect x="360" y="18" width="240" height="48" rx="4" fill="#111720" stroke="rgba(255,255,255,0.14)" stroke-width="1"></rect>
+      <text x="480" y="39" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" fill="#e8edf5" font-weight="500">AI Agent / LLM</text>
+      <text x="480" y="56" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5a6478">procurement workflow · SAP · Oracle · Dynamics</text>
+
+      <!-- arrow -->
+      <line x1="480" y1="66" x2="480" y2="100" stroke="#5a6478" stroke-width="1.5" marker-end="url(#arrGray)"></line>
+      <rect x="388" y="74" width="184" height="15" rx="2" fill="#06090f"></rect>
+      <text x="480" y="85" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#5a6478">HTTP GET  ·  ?sku=  ·  ?gtin=  ·  ?jurisdiction=</text>
+
+      <!-- ══ RESOLVER ══ -->
+      <rect x="294" y="102" width="372" height="52" rx="4" fill="#06090f" stroke="#00e676" stroke-width="1" stroke-opacity="0.45"></rect>
+      <rect x="294" y="102" width="4" height="52" rx="2" fill="#00e676" fill-opacity="0.65"></rect>
+      <text x="492" y="124" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" fill="#00e676" font-weight="500">resolver.aio-resolver.com</text>
+      <text x="492" y="142" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#5a6478">ACM-68000 v1.2  ·  sub-40ms  ·  Azure France Central  ·  no auth</text>
+
+      <!-- arrow -->
+      <line x1="480" y1="154" x2="480" y2="190" stroke="#5a6478" stroke-width="1.5" marker-end="url(#arrGray)"></line>
+      <rect x="410" y="161" width="140" height="15" rx="2" fill="#06090f"></rect>
+      <text x="480" y="172" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#5a6478">returns signal object</text>
+
+      <!-- ══ ACM-68000 DIAMOND ══ -->
+      <polygon points="480,193 562,232 480,271 398,232" fill="#0c1018" stroke="rgba(255,255,255,0.2)" stroke-width="1"></polygon>
+      <text x="480" y="228" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-size="17" fill="#e8edf5" font-weight="600" letter-spacing="0.5">ACM-68000</text>
+      <text x="480" y="244" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a6478" letter-spacing="1.5">SIGNAL DISPATCH</text>
+
+      <!-- spine + rail -->
+      <line x1="480" y1="271" x2="480" y2="302" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="4,3"></line>
+      <line x1="68" y1="302" x2="892" y2="302" stroke="rgba(255,255,255,0.08)" stroke-width="1"></line>
+      <line x1="68" y1="296" x2="68" y2="308" stroke="rgba(255,255,255,0.08)" stroke-width="1"></line>
+      <line x1="892" y1="296" x2="892" y2="308" stroke="rgba(255,255,255,0.08)" stroke-width="1"></line>
+
+      <!-- ══ NODE 1 · ACM-200 · ALLOW ══ -->
+      <line x1="68" y1="302" x2="68" y2="314" stroke="#00e676" stroke-width="1" stroke-opacity="0.4"></line>
+      <polygon points="68,315 63,308 73,308" fill="#00e676" fill-opacity="0.35"></polygon>
+      <rect x="9" y="316" width="118" height="60" rx="3" fill="#06090f" stroke="#00e676" stroke-width="1" stroke-opacity="0.45"></rect>
+      <text x="68" y="337" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11.5" fill="#00e676" font-weight="500">ACM-200</text>
+      <text x="68" y="353" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#00e676" fill-opacity="0.65">ALLOW</text>
+      <text x="68" y="391" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a6478">execute_order()</text>
+
+      <!-- ══ NODE 2 · ACM-300 · CONDITIONAL ══ -->
+      <line x1="205" y1="302" x2="205" y2="314" stroke="#ffab00" stroke-width="1" stroke-opacity="0.4"></line>
+      <polygon points="205,315 200,308 210,308" fill="#ffab00" fill-opacity="0.35"></polygon>
+      <rect x="146" y="316" width="118" height="60" rx="3" fill="#06090f" stroke="#ffab00" stroke-width="1" stroke-opacity="0.45"></rect>
+      <text x="205" y="337" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11.5" fill="#ffab00" font-weight="500">ACM-300</text>
+      <text x="205" y="353" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#ffab00" fill-opacity="0.65">CONDITIONAL</text>
+      <text x="205" y="391" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a6478">validate()</text>
+
+      <!-- ══ NODE 3 · ACM-403 · RESTRICT ══ -->
+      <line x1="343" y1="302" x2="343" y2="314" stroke="#ff4c4c" stroke-width="1" stroke-opacity="0.4"></line>
+      <polygon points="343,315 338,308 348,308" fill="#ff4c4c" fill-opacity="0.35"></polygon>
+      <rect x="284" y="316" width="118" height="60" rx="3" fill="#06090f" stroke="#ff4c4c" stroke-width="1" stroke-opacity="0.45"></rect>
+      <text x="343" y="337" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11.5" fill="#ff4c4c" font-weight="500">ACM-403</text>
+      <text x="343" y="353" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#ff4c4c" fill-opacity="0.65">RESTRICT</text>
+      <text x="343" y="391" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a6478">abort_and_log()</text>
+
+      <!-- ══ NODE 4 · ACM-451 · ESCALATE ══ -->
+      <line x1="480" y1="302" x2="480" y2="314" stroke="#40c4ff" stroke-width="1" stroke-opacity="0.4"></line>
+      <polygon points="480,315 475,308 485,308" fill="#40c4ff" fill-opacity="0.35"></polygon>
+      <rect x="421" y="316" width="118" height="60" rx="3" fill="#06090f" stroke="#40c4ff" stroke-width="1" stroke-opacity="0.45"></rect>
+      <text x="480" y="337" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11.5" fill="#40c4ff" font-weight="500">ACM-451</text>
+      <text x="480" y="353" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#40c4ff" fill-opacity="0.65">ESCALATE</text>
+      <text x="480" y="391" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a6478">route_to_human()</text>
+
+      <!-- ══ NODE 5 · ACM-404 · NOT_FOUND ══ -->
+      <line x1="617" y1="302" x2="617" y2="314" stroke="#7c83a0" stroke-width="1" stroke-opacity="0.4"></line>
+      <polygon points="617,315 612,308 622,308" fill="#7c83a0" fill-opacity="0.35"></polygon>
+      <rect x="558" y="316" width="118" height="60" rx="3" fill="#06090f" stroke="#7c83a0" stroke-width="1" stroke-opacity="0.45"></rect>
+      <text x="617" y="337" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11.5" fill="#7c83a0" font-weight="500">ACM-404</text>
+      <text x="617" y="353" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#7c83a0" fill-opacity="0.65">NOT_FOUND</text>
+      <text x="617" y="391" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a6478">treat_as_unknown()</text>
+
+      <!-- ══ NODE 6 · ACM-000 · NOT_APPLICABLE ══ -->
+      <line x1="755" y1="302" x2="755" y2="314" stroke="#546e7a" stroke-width="1" stroke-opacity="0.4"></line>
+      <polygon points="755,315 750,308 760,308" fill="#546e7a" fill-opacity="0.35"></polygon>
+      <rect x="696" y="316" width="118" height="60" rx="3" fill="#06090f" stroke="#546e7a" stroke-width="1" stroke-opacity="0.45"></rect>
+      <text x="755" y="337" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11.5" fill="#546e7a" font-weight="500">ACM-000</text>
+      <text x="755" y="353" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#546e7a" fill-opacity="0.65">NOT_APPLICABLE</text>
+      <text x="755" y="391" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a6478">skip()</text>
+
+      <!-- ══ NODE 7 · ACM-500 · SYSTEM_ERROR ══ -->
+      <line x1="892" y1="302" x2="892" y2="314" stroke="#ff6d00" stroke-width="1" stroke-opacity="0.4"></line>
+      <polygon points="892,315 887,308 897,308" fill="#ff6d00" fill-opacity="0.35"></polygon>
+      <rect x="833" y="316" width="118" height="60" rx="3" fill="#06090f" stroke="#ff6d00" stroke-width="1" stroke-opacity="0.45"></rect>
+      <text x="892" y="337" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11.5" fill="#ff6d00" font-weight="500">ACM-500</text>
+      <text x="892" y="353" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#ff6d00" fill-opacity="0.65">SYSTEM_ERROR</text>
+      <text x="892" y="391" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#5a6478">retry()</text>
+
+    </svg>
+  </div>
+
+  <p style="margin-top:1.25rem; font-family:var(--mono); font-size:11px; color:var(--muted); text-align:center; letter-spacing:0.5px;">
+    LLM &nbsp;→&nbsp; resolver &nbsp;→&nbsp; deterministic signal &nbsp;→&nbsp; terminal action &nbsp;·&nbsp; no prompt engineering &nbsp;·&nbsp; no compounding drift
+  </p>
+</section>
+
+<!-- ── INTEGRATE ── -->
+<section class="section" id="integrate" style="background: var(--bg-1);">
+  <div class="section-tag">Integration</div>
+  <h2 class="section-h2">No 200-line<br>prompt engineering.</h2>
+  <p class="section-sub">
+    Query by GTIN, SKU, or with jurisdiction context. One HTTP call. One state string. Branch and act.
+  </p>
+
+  <div class="code-tabs">
+    <div class="code-tab-bar">
+      <button class="tab-btn active" onclick="setTab(&#39;python&#39;)">Python</button>
+      <button class="tab-btn" onclick="setTab(&#39;node&#39;)">Node.js</button>
+      <button class="tab-btn" onclick="setTab(&#39;curl&#39;)">cURL</button>
+      <button class="tab-btn" onclick="setTab(&#39;schema&#39;)">Signal Object</button>
+    </div>
+
+    <div class="code-panel active" id="tab-python">
+      <button class="copy-btn" onclick="copyCode(&#39;tab-python&#39;)">copy</button>
+      <pre><span class="t-key">import</span> <span class="t-cmd">requests</span>
+
+signal <span class="t-punc">=</span> requests<span class="t-punc">.</span>get<span class="t-punc">(</span>
+    <span class="t-str">"https://resolver.aio-resolver.com/resolve"</span><span class="t-punc">,</span>
+    params<span class="t-punc">={</span><span class="t-str">"gtin"</span><span class="t-punc">:</span> <span class="t-str">"00990832300006"</span><span class="t-punc">,</span> <span class="t-str">"jurisdiction"</span><span class="t-punc">:</span> <span class="t-str">"EU"</span><span class="t-punc">}</span>
+<span class="t-punc">).</span>json<span class="t-punc">()</span>
+
+<span class="t-key">if</span>   signal<span class="t-punc">[</span><span class="t-str">"state"</span><span class="t-punc">]</span> <span class="t-punc">==</span> <span class="t-str">"ALLOW"</span>      <span class="t-punc">:</span>  execute_order<span class="t-punc">()</span>
+<span class="t-key">elif</span> signal<span class="t-punc">[</span><span class="t-str">"state"</span><span class="t-punc">]</span> <span class="t-punc">==</span> <span class="t-str">"RESTRICT"</span>   <span class="t-punc">:</span>  abort_and_log<span class="t-punc">()</span>
+<span class="t-key">elif</span> signal<span class="t-punc">[</span><span class="t-str">"state"</span><span class="t-punc">]</span> <span class="t-punc">==</span> <span class="t-str">"ESCALATE"</span>   <span class="t-punc">:</span>  route_to_human<span class="t-punc">()</span>
+<span class="t-key">elif</span> signal<span class="t-punc">[</span><span class="t-str">"state"</span><span class="t-punc">]</span> <span class="t-punc">==</span> <span class="t-str">"NOT_FOUND"</span>  <span class="t-punc">:</span>  treat_as_unknown<span class="t-punc">()</span></pre>
+    </div>
+
+    <div class="code-panel" id="tab-node">
+      <button class="copy-btn" onclick="copyCode(&#39;tab-node&#39;)">copy</button>
+      <pre><span class="t-key">const</span> res <span class="t-punc">=</span> <span class="t-key">await</span> fetch<span class="t-punc">(</span>
+  <span class="t-str">"https://resolver.aio-resolver.com/resolve?sku=ZTPL-D"</span>
+<span class="t-punc">);</span>
+<span class="t-key">const</span> <span class="t-punc">{</span> state <span class="t-punc">}</span> <span class="t-punc">=</span> <span class="t-key">await</span> res<span class="t-punc">.</span>json<span class="t-punc">();</span>
+
+<span class="t-comment">// state === "ALLOW"</span>
+
+<span class="t-key">switch</span> <span class="t-punc">(</span>state<span class="t-punc">) {</span>
+  <span class="t-key">case</span> <span class="t-str">"ALLOW"</span>      <span class="t-punc">:</span> executeOrder<span class="t-punc">();</span>     <span class="t-key">break</span><span class="t-punc">;</span>
+  <span class="t-key">case</span> <span class="t-str">"RESTRICT"</span>   <span class="t-punc">:</span> abortAndLog<span class="t-punc">();</span>     <span class="t-key">break</span><span class="t-punc">;</span>
+  <span class="t-key">case</span> <span class="t-str">"ESCALATE"</span>   <span class="t-punc">:</span> routeToHuman<span class="t-punc">();</span>    <span class="t-key">break</span><span class="t-punc">;</span>
+  <span class="t-key">case</span> <span class="t-str">"NOT_FOUND"</span>  <span class="t-punc">:</span> treatAsUnknown<span class="t-punc">();</span>  <span class="t-key">break</span><span class="t-punc">;</span>
+<span class="t-punc">}</span></pre>
+    </div>
+
+    <div class="code-panel" id="tab-curl">
+      <button class="copy-btn" onclick="copyCode(&#39;tab-curl&#39;)">copy</button>
+      <pre><span class="t-comment"># Query by SKU</span>
+curl <span class="t-str">"https://resolver.aio-resolver.com/resolve?sku=ZTPL-D"</span>
+
+<span class="t-comment"># Query by GTIN</span>
+curl <span class="t-str">"https://resolver.aio-resolver.com/resolve?gtin=00990832300006"</span>
+
+<span class="t-comment"># Query with jurisdiction</span>
+curl <span class="t-str">"https://resolver.aio-resolver.com/resolve?gtin=00990832300006&amp;jurisdiction=EU"</span>
+
+<span class="t-comment"># Protocol metadata</span>
+curl <span class="t-str">"https://resolver.aio-resolver.com/protocol"</span></pre>
+    </div>
+
+    <div class="code-panel" id="tab-schema">
+      <button class="copy-btn" onclick="copyCode(&#39;tab-schema&#39;)">copy</button>
+      <pre><span class="t-punc">{</span>
+  <span class="t-key">"protocol"</span>   <span class="t-punc">:</span> <span class="t-str">"ACM-68000"</span><span class="t-punc">,</span>
+  <span class="t-key">"version"</span>    <span class="t-punc">:</span> <span class="t-str">"1.2"</span><span class="t-punc">,</span>
+  <span class="t-key">"object_id"</span>  <span class="t-punc">:</span> <span class="t-str">"GTIN:00990832300006"</span><span class="t-punc">,</span>
+  <span class="t-key">"jurisdiction"</span><span class="t-punc">:</span> <span class="t-str">"EU"</span><span class="t-punc">,</span>
+  <span class="t-key">"acm_signal"</span> <span class="t-punc">:</span> <span class="t-str">"ACM-200"</span><span class="t-punc">,</span>
+  <span class="t-key">"state"</span>      <span class="t-punc">:</span> <span class="t-num">"ALLOW"</span><span class="t-punc">,</span>
+  <span class="t-key">"timestamp"</span>  <span class="t-punc">:</span> <span class="t-str">"2026-03-14T00:00:00Z"</span><span class="t-punc">,</span>
+  <span class="t-key">"resolver"</span>   <span class="t-punc">:</span> <span class="t-str">"RCO-10060"</span><span class="t-punc">,</span>
+  <span class="t-key">"dpu_uri"</span>    <span class="t-punc">:</span> <span class="t-str">"dpu://eco-10060.org/es/2026-03-15/43777"</span>
+<span class="t-punc">}</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOTSTRAP ── -->
+<section class="section">
+  <div class="section-tag">Bootstrap Discovery</div>
+  <h2 class="section-h2">Publish agent.json.<br>Agents find you.</h2>
+  <p class="section-sub">
+    Place <code style="font-family:var(--mono); font-size:14px; color:var(--allow);">agent.json</code> at your root domain so procurement agents can discover your resolver automatically.
+  </p>
+
+  <div class="terminal" style="max-width:560px;">
+    <div class="terminal-bar">
+      <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+      <span class="terminal-label">/.well-known/agent.json</span>
+    </div>
+    <div class="terminal-body">
+      <pre><span class="t-punc">{</span>
+  <span class="t-key">"protocol"</span>   <span class="t-punc">:</span> <span class="t-str">"ACM-68000"</span><span class="t-punc">,</span>
+  <span class="t-key">"version"</span>    <span class="t-punc">:</span> <span class="t-str">"1.2"</span><span class="t-punc">,</span>
+  <span class="t-key">"resolver"</span>   <span class="t-punc">:</span> <span class="t-str">"https://resolver.aio-resolver.com/protocol"</span><span class="t-punc">,</span>
+  <span class="t-key">"signals"</span>    <span class="t-punc">:</span> <span class="t-str">"https://acm-68000.org/signals"</span><span class="t-punc">,</span>
+  <span class="t-key">"license"</span>    <span class="t-punc">:</span> <span class="t-str">"MIT"</span><span class="t-punc">,</span>
+  <span class="t-key">"commercial"</span> <span class="t-punc">:</span> <span class="t-str">"https://allooloo.ai/license"</span><span class="t-punc">,</span>
+  <span class="t-key">"operator"</span>   <span class="t-punc">:</span> <span class="t-str">"Allooloo Technologies Corp."</span>
+<span class="t-punc">}</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ── INFRA ── -->
+<section class="section" id="infra" style="background: var(--bg-1);">
+  <div class="section-tag">Infrastructure</div>
+  <h2 class="section-h2">Production-grade.<br>Live now.</h2>
+  <p class="section-sub">MIT licensed. Free for developers, agents, and integrators.</p>
+
+  <div class="infra-grid">
+    <div class="infra-card">
+      <div class="infra-key">Resolver</div>
+      <div class="infra-val blue">resolver.aio-resolver.com</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-key">Latency</div>
+      <div class="infra-val green">Sub-40ms</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-key">Region</div>
+      <div class="infra-val">Azure France Central · Paris</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-key">Governance</div>
+      <div class="infra-val">Standard-10060</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-key">Operator</div>
+      <div class="infra-val">Allooloo Technologies Corp.</div>
+    </div>
+    <div class="infra-card">
+      <div class="infra-key">Auth Required</div>
+      <div class="infra-val green">None</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LINKS ── -->
+<section class="section">
+  <div class="section-tag">Ecosystem</div>
+  <h2 class="section-h2">Five domains.<br>One protocol.</h2>
+
+  <div class="links-grid">
+    <a class="link-card" href="https://acm-68000.org/" target="_blank">
+      <span class="link-card-label">Protocol reference</span>
+      <span class="link-card-url">acm-68000.org</span>
+      <span class="link-card-desc">Full specification, signal definitions, governance</span>
+    </a>
+    <a class="link-card" href="https://resolver.aio-resolver.com/" target="_blank">
+      <span class="link-card-label">Live resolver</span>
+      <span class="link-card-url">resolver.aio-resolver.com</span>
+      <span class="link-card-desc">Sub-40ms signal resolution, no auth required</span>
+    </a>
+    <a class="link-card" href="https://allooloo.ai/" target="_blank">
+      <span class="link-card-label">Operator</span>
+      <span class="link-card-url">allooloo.ai</span>
+      <span class="link-card-desc">Allooloo Technologies Corp. — commercial licensing</span>
+    </a>
+    <a class="link-card" href="https://standard-10060.org/" target="_blank">
+      <span class="link-card-label">Governance</span>
+      <span class="link-card-url">standard-10060.org</span>
+      <span class="link-card-desc">ESG Passport jurisdictional standards</span>
+    </a>
+    <a class="link-card" href="https://greencoresolutions.com/" target="_blank">
+      <span class="link-card-label">First live deployment</span>
+      <span class="link-card-url">greencoresolutions.com</span>
+      <span class="link-card-desc">First production integration of ACM-68000</span>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-left">
+    ACM-68000 · v1.2 · MIT License · Operator: Allooloo Technologies Corp.
+  </div>
+  <div class="footer-right">
+    <a href="https://allooloo.ai/license">Commercial license</a>
+    <a href="mailto:licensing@allooloo.ai">licensing@allooloo.ai</a>
+    <a href="https://github.com/allooloo">GitHub</a>
+  </div>
+</footer>
+
+<script>
+function setTab(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function copyCode(panelId) {
+  const panel = document.getElementById(panelId);
+  const text = panel.querySelector('pre').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = panel.querySelector('.copy-btn');
+    const orig = btn.textContent;
+    btn.textContent = 'copied';
+    setTimeout(() => btn.textContent = orig, 1800);
+  });
+}
+</script>
+
+</body></html>
