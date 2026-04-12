@@ -1,4 +1,4 @@
-# 7-Signal Foundry
+# 7-Signal Refinery
 
 ## Signal Over Slop: The Deterministic Rails for Agentic Commerce
 
