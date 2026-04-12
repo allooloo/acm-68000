@@ -48,8 +48,8 @@
 >
 > | Identity | Domain | Role | License |
 > |----------|--------|------|---------|
-> | **The Foundation** | 7SignalFoundry.org | MIT Protocol spec | MIT |
-> | **The Apex** | 7SignalFoundry.ai | Enterprise CPG/Retail | Commercial |
+> | **The Foundation** | 7SignalRefinery.org | MIT Protocol spec | MIT |
+> | **The Apex** | 7SignalRefinery.ai | Enterprise CPG/Retail | Commercial |
 > | **The Stack** | 7SignalStack.ai | 7 Signals OUT | MIT |
 > | **The Ingress** | 7SignalIngress.ai | Return Beacon IN | MIT |
 > | **The Registry** | mcp.10060.ai | MCP "Phone Book" | Open |
