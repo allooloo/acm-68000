@@ -1,224 +1,145 @@
-# ACM-68000
+# 7-Signal Foundry
 
-**The Deterministic Signal Protocol for Agentic Commerce**
+## Signal Over Slop: The Deterministic Rails for Agentic Commerce
 
-**Operator:** Allooloo Technologies Corp.  
-**Version:** 1.2 · **Status:** LIVE  
-**License:** MIT (protocol spec) · Commercial license required for production resolver access  
-**Resolver:** [resolver.aio-resolver.com](https://resolver.aio-resolver.com)  
-**MCP Server:** [mcp.10060.ai](https://mcp.10060.ai)  
-**Protocol reference:** [allooloo.ai](https://www.allooloo.ai)
-
----
-
-## What It Is
-
-ACM-68000 is a machine-executable eligibility protocol. It issues deterministic terminal signals for SKU orderability — enabling AI procurement agents and enterprise ERP systems to execute commercial actions without interpreting ESG, regulatory, or sourcing rules themselves.
-
-**One query. One resolved state. No interpretation required.**
+**Operator:** Allooloo Technologies Corp.
+**Version:** 2.0 · **Status:** LIVE
+**License:** MIT (protocol spec) · Commercial license for enterprise refinery
+**MCP Server:** [mcp.10060.ai](https://mcp.10060.ai)
+**MCP Registry:** [io.github.allooloo/acm-68000-mcp](https://registry.modelcontextprotocol.io/?q=io.github.allooloo)
 
 ---
 
-## 🔌 MCP Server — Official Registry
+## The Thesis
 
-**Registry:** `io.github.allooloo/acm-68000-mcp`  
-**Endpoint:** https://mcp.10060.ai  
-**Transport:** Streamable HTTP  
-**Category:** First CPG/FMCG product resolver on MCP
-
-### Connect in Claude Desktop
-
-Add to your `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "acm-68000": {
-      "url": "https://mcp.10060.ai"
-    }
-  }
-}
-```
-
-### Available Tools
-
-| Tool | Description |
-|------|-------------|
-| `resolve_gtin` | Quick GTIN → ACM signal lookup |
-| `get_dpu` | Full DPU v1.1 object with jurisdiction, compliance |
-| `check_eligibility` | Check if GTIN is eligible in a specific jurisdiction |
-| `list_signals` | All 7 ACM-68000 signal definitions |
-| `list_products` | All products on AIO-TFX Rail |
-
-### Example Usage
-
-**Agent:** "Is GTIN 00990832300006 eligible for sale in Germany?"
-
-→ `resolve_gtin(gtin="00990832300006")`  
-→ `{ "signal": "ACM-200", "state": "ALLOW" }`
-
-→ `check_eligibility(gtin="00990832300006", jurisdiction="DE")`  
-→ `{ "eligible": true, "signal": "ACM-200", "reason": "DE is in authorized jurisdiction list" }`
-
----
-
-## 🤖 LLM Function Schemas
-
-Function schemas for integrating ACM-68000 tools into LLM applications.
-
-| LLM Platform | Schema File | Notes |
-|--------------|-------------|-------|
-| **Mistral** | `openapi.json` | OpenAPI 3.0 format |
-| **Perplexity** | `openapi.json` | OpenAPI 3.0 format |
-| **Gemini** | `function-calling.json` | JSON Schema format |
-| **Copilot** | `function-calling.json` | JSON Schema format |
-| **Grok** | `function-calling.json` | JSON Schema format |
-| **Claude** | Use MCP Registry | `io.github.allooloo/acm-68000-mcp` |
-
----
-
-## Signal Vocabulary
-
-| Signal | State | Meaning |
-|--------|-------|---------|
-| ACM-200 | ALLOW | Agent may execute the commercial action |
-| ACM-300 | CONDITIONAL | Execution permitted only if required conditions are satisfied |
-| ACM-403 | RESTRICT | Action blocked under current policy or compliance conditions |
-| ACM-404 | NOT_FOUND | Referenced object or identifier could not be resolved |
-| ACM-451 | ESCALATE | Human review required before execution |
-| ACM-500 | SYSTEM_ERROR | Resolver infrastructure could not produce a valid execution state |
-| ACM-000 | NOT_APPLICABLE | Signal does not govern the evaluated object or context |
-
----
-
-## Query the Resolver
-
-```bash
-# Live SKU — TreeFree Core econoLiite Disposable Baby Diapers
-curl "https://resolver.aio-resolver.com/resolve?sku=ZTPL-10060-OP"
-
-# Live SKU — TreeFree Core Pant Diapers
-curl "https://resolver.aio-resolver.com/resolve?sku=ZTPL-10060-PT"
-
-# Virtual demo SKU — for agent testing and integration development
-curl "https://resolver.aio-resolver.com/resolve?sku=ZTPL-D"
-
-# Protocol metadata
-curl "https://resolver.aio-resolver.com/protocol"
-```
-
-**Live response:**
-```json
-{
-  "resolver": "resolver.aio-resolver.com",
-  "protocol": "ACM-68000",
-  "version": "1.2",
-  "sku": "ZTPL-10060-OP",
-  "signal": "ACM-200",
-  "state": "ALLOW"
-}
-```
-
----
-
-## DPU Endpoints (GTIN-based)
-
-```bash
-# TreeFree Core econoLiite (Tape) — GTIN 00990832300006
-curl "https://aio-tfx-rail.ai/dpu/00990832300006.json"
-
-# TreeFree Core (Pant) — GTIN 00990832300013
-curl "https://aio-tfx-rail.ai/dpu/00990832300013.json"
-```
-
-**DPU v1.1 Response:**
-```json
-{
-  "dpu_version": "1.1",
-  "gtin": "00990832300006",
-  "name": "TreeFree Core econoLiite Core® Disposable Baby Diapers 240 Each",
-  "signal": "ACM-200",
-  "state": "ALLOW",
-  "jurisdiction": ["US","CA","MX","UK","FR","DE","IT","ES","CH","PL","NL","SG","SK","IN","JP","KR","AU","BR"],
-  "compliance": {
-    "sgs_report": "52583",
-    "classification": "Class B",
-    "verified": true
-  }
-}
-```
-
----
-
-## Agent Bootstrap Discovery
-
-Place `agent.json` at your root domain so procurement agents can discover your resolver automatically:
-
-```json
-{
-  "protocol": "ACM-68000",
-  "version": "1.2",
-  "resolver": "https://resolver.aio-resolver.com/protocol",
-  "mcp_server": "https://mcp.10060.ai",
-  "license": "MIT",
-  "commercial": "https://allooloo.ai/license",
-  "operator": "Allooloo Technologies Corp."
-}
-```
-
----
-
-## Infrastructure
-
-Production-grade deployment on **Microsoft Azure** (France Central).
-
-| Attribute | Value |
-|-----------|-------|
-| **Compute** | Microsoft Azure |
-| **Region** | France Central (Paris) |
-| **Latency** | Sub-40ms global |
-| **Uptime** | 99.9% SLA |
-| **CDN** | Cloudflare |
-| **Partner** | Microsoft AI Cloud Partner Program |
-
-All endpoints are production-ready for enterprise integration.
-
-| Component | Endpoint |
-|-----------|----------|
-| Resolver | resolver.aio-resolver.com |
-| MCP Server | mcp.10060.ai |
-| DPU Rail | aio-tfx-rail.ai |
-
----
-
-## Governance
-
-| Attribute | Value |
-|-----------|-------|
-| Maintainer | Allooloo Technologies Corp. |
-| Protocol | ACM-68000 — AI Commerce Mechanism 68000 |
-| Signal Layer | Agentic Hyperscaler Signals (AHS) |
-| Governance Framework | Standard-10060 |
-| Versioning | Semantic · append-only · non-breaking |
-
----
-
-## License
-
-The ACM-68000 protocol specification is open under the **MIT License**.  
-Production resolver access requires a commercial license. See [allooloo.ai/license](https://allooloo.ai/license).
-
----
-
-## First Live Deployment
-
-The **AIO-TFX Rail** — the non-lignocellulosic hygiene vertical execution rail — is the first live deployment on the ACM-68000 signal cluster, operational for **GreenCore Solutions Corp.**
-
-- **Signal:** ACM-200 ALLOW · clean execution confirmed
-- - **ERP:** SAP ECC 6.0 confirmed
-  - - **Live jurisdictions:** US · CA · MX · UK · FR · DE · IT · ES · CH · PL · NL · SG · SK · IN · JP · KR · AU · BR (18 markets)
-   
-    - ---
-
-    **Allooloo Technologies Corp.** · Vancouver · Paris · Barcelona
-    [allooloo.ai](https://www.allooloo.ai) · licensing@allooloo.ai
+> In a web where 90% of content is synthetic slop and 51% of traffic is automated noise, interpretation is a liability. The 7-Signal Foundry replaces generative "guessing" with deterministic, machine-readable states via the ACM-68000 protocol. By anchoring trust in two geographically separated tenants—Signal Source and Independent Anchor—we create a self-propagating commerce layer that rises above the slop through speed, clarity, and sovereign isolation. We don't compete for attention; we provide the rails for execution.
+>
+> ---
+>
+> ## The 7-Signal Stack — Always 7, Never Truncated
+>
+> | Signal | State |
+> |--------|-------|
+> | `acm-000.ai` | NOT_APPLICABLE |
+> | `acm-200.ai` | ALLOW |
+> | `acm-300.ai` | CONDITIONAL |
+> | `acm-403.ai` | RESTRICT |
+> | `acm-404.ai` | NOT_FOUND |
+> | `acm-451.ai` | ESCALATE |
+> | `acm-500.ai` | SYSTEM_ERROR |
+>
+> **7 signals. Always listed. Never truncated.**
+>
+> ---
+>
+> ## The Two Tenets
+>
+> | Tenet | Domain | Question |
+> |-------|--------|----------|
+> | **#1 — Signal Source** | acm-200.ai | "What is the state?" |
+> | **#2 — Verification Anchor** | dpuone.ai | "Can this state be trusted?" |
+> | **Discovery Layer** | mcp.10060.ai | "Where is this discoverable?" |
+>
+> **Two tenants. Separate sources. Cross-verified. No single point of trust.**
+>
+> ---
+>
+> ## The Foundry Ecosystem
+>
+> | Identity | Domain | Role | License |
+> |----------|--------|------|---------|
+> | **The Foundation** | 7SignalFoundry.org | MIT Protocol spec | MIT |
+> | **The Apex** | 7SignalFoundry.ai | Enterprise CPG/Retail | Commercial |
+> | **The Stack** | 7SignalStack.ai | 7 Signals OUT | MIT |
+> | **The Ingress** | 7SignalIngress.ai | Return Beacon IN | MIT |
+> | **The Registry** | mcp.10060.ai | MCP "Phone Book" | Open |
+> | **The Example** | dpuone.ai | MIT Reference Node | MIT |
+>
+> ---
+>
+> ## The Self-Propagation Model
+>
+> ```
+> 1. Fork   → Developers take ACM-68000 from GitHub
+> 2. Emit   → Broadcast Ghost Headers from their domains
+> 3. Discover → Agents resolve via MCP Registry
+> 4. Loop   → Signals OUT (Headers) → Signals BACK (/ingest)
+> ```
+>
+> **No signup. No central authority. Pure loop.**
+>
+> ---
+>
+> ## For MIT Developers
+>
+> | Question | Answer |
+> |----------|--------|
+> | Signals | 7 |
+> | Headers | 15 |
+> | Latency | <40ms |
+> | License | MIT |
+>
+> ```python
+> signal = resolve(gtin="00990832300006")
+>
+> if signal == "ACM-200":
+>     execute()
+> elif signal == "ACM-300":
+>     verify()
+> elif signal == "ACM-403":
+>     block()
+> ```
+>
+> **You are not onboarding them. You are giving them a pattern that replicates.**
+>
+> ---
+>
+> ## For Enterprises
+>
+> | Feature | 7SignalFoundry.ai | Competitors |
+> |---------|-------------------|-------------|
+> | Latency | <40ms | ~500ms |
+> | Deterministic | ✅ No LLMs | ❌ LLM-based |
+> | Discovery | ✅ MCP Registry | ❌ Manual setup |
+> | Audit Trail | ✅ 15 Ghost Headers | ❌ None |
+>
+> **Own the refinery. Skip the slop.**
+>
+> ---
+>
+> ## The Closed Loop
+>
+> ```
+> Signal OUT → Agent reads → Agent resolves → Agent POSTs back → /ingest
+> ```
+>
+> This is not optional. This is not heuristic. This is deterministic behavior encoded in the protocol.
+>
+> ---
+>
+> ## The Anti-Slop Manifesto
+>
+> > "In a world of AI slop, we don't build content. We build the filter. Signals out. Signals back. Fast as Fuck."
+> >
+> > ---
+> >
+> > ## Key Links
+> >
+> > | Resource | URL |
+> > |----------|-----|
+> > | MIT Spec | [github.com/allooloo/acm-68000](https://github.com/allooloo/acm-68000) |
+> > | MCP Registry | [registry.modelcontextprotocol.io](https://registry.modelcontextprotocol.io/?q=io.github.allooloo) |
+> > | MCP Server | [mcp.10060.ai](https://mcp.10060.ai) |
+> > | Example Node | [dpuone.ai](https://dpuone.ai) |
+> >
+> > ---
+> >
+> > ## License
+> >
+> > **MIT** — Fork it. Build it. Own your signals.
+> >
+> > ---
+> >
+> > ## 7 LLMs. 1 Thesis. Zero Conflicts.
+> >
+> > **"Fork ACM-68000. Emit FaF signals. Agents call home."** 🚀
