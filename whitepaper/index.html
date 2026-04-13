@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founder's Document · ACM-68000</title>
+    <meta name="description" content="ACM-68000 Founder's Document - Operating Design Reference & White Paper for the Agentic Commerce Manifest Protocol.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0b;
+            --bg-secondary: #111113;
+            --bg-tertiary: #1a1a1d;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a5;
+            --text-muted: #6a6a70;
+            --accent-green: #1D9E75;
+            --accent-amber: #EF9F27;
+            --accent-red: #E24B4A;
+            --accent-purple: #7F77DD;
+            --accent-cyan: #00d4ff;
+            --border-color: #2a2a2d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.8; }
+        code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Navigation */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(10, 10, 11, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); padding: 1rem 2rem; }
+        .nav-container { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text-primary); }
+        .nav-logo-icon { width: 32px; height: 32px; background: var(--accent-green); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .btn-download { background: var(--accent-green); color: var(--bg-primary); padding: 0.5rem 1rem; border-radius: 6px; font-weight: 500; font-size: 0.85rem; }
+        .btn-download:hover { background: #22b085; color: var(--bg-primary); }
+
+        /* Document Container */
+        .document { max-width: 900px; margin: 0 auto; padding: 8rem 2rem 4rem; }
+
+        /* Cover */
+        .cover { text-align: center; padding: 4rem 0; border-bottom: 1px solid var(--border-color); margin-bottom: 4rem; }
+        .cover-badge { display: inline-block; padding: 0.4rem 0.8rem; border: 1px solid var(--accent-amber); color: var(--accent-amber); border-radius: 4px; font-size: 0.8rem; font-weight: 500; margin-bottom: 2rem; letter-spacing: 0.05em; }
+        .cover h1 { font-size: 3.5rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; }
+        .cover h1 span { color: var(--accent-green); }
+        .cover-subtitle { font-size: 1.3rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+        .cover-meta { color: var(--text-muted); font-size: 0.95rem; margin-top: 2rem; }
+        .cover-company { margin-top: 3rem; }
+        .cover-company strong { font-size: 1.1rem; }
+        .cover-company p { color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.5rem; }
+
+        /* TOC */
+        .toc { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin-bottom: 4rem; }
+        .toc h2 { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+        .toc-list { list-style: none; }
+        .toc-list li { padding: 0.5rem 0; }
+        .toc-list a { color: var(--text-secondary); text-decoration: none; display: flex; align-items: center; gap: 1rem; transition: color 0.2s; }
+        .toc-list a:hover { color: var(--accent-green); }
+        .toc-number { font-family: 'JetBrains Mono', monospace; color: var(--accent-green); min-width: 2rem; }
+
+        /* Sections */
+        .section { margin-bottom: 4rem; padding-top: 2rem; }
+        .section-number { font-family: 'JetBrains Mono', monospace; color: var(--accent-green); font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .section h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+        .section h3 { font-size: 1.3rem; font-weight: 600; margin: 2rem 0 1rem; color: var(--text-primary); }
+        .section p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+        .section strong { color: var(--text-primary); }
+
+        /* Thesis Box */
+        .thesis-box { background: var(--bg-tertiary); border-left: 4px solid var(--accent-green); padding: 2rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .thesis-box p { font-size: 1.15rem; color: var(--text-primary); font-style: italic; line-height: 1.8; margin-bottom: 0; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 2rem 0; background: var(--bg-secondary); border-radius: 8px; overflow: hidden; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background: var(--bg-tertiary); font-weight: 600; color: var(--text-primary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        td { color: var(--text-secondary); }
+        td:first-child { color: var(--text-primary); font-weight: 500; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Code Blocks */
+        .code-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; overflow-x: auto; }
+        .code-block code { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+        .code-comment { color: var(--text-muted); }
+        .code-key { color: var(--accent-cyan); }
+        .code-value { color: var(--accent-green); }
+        .code-url { color: var(--accent-amber); }
+
+        /* Signal Cards */
+        .signal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0; }
+        .signal-card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+        .signal-dot { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; }
+        .signal-code { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 600; }
+        .signal-state { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+
+        /* Flow Diagram */
+        .flow-diagram { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+        .flow-row { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+        .flow-step { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.75rem 1.25rem; font-size: 0.9rem; }
+        .flow-arrow { color: var(--accent-green); font-size: 1.5rem; }
+        .flow-label { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem; }
+
+        /* Header Grid */
+        .header-grid { display: grid; gap: 0.5rem; margin: 2rem 0; }
+        .header-item { display: flex; padding: 0.75rem 1rem; background: var(--bg-secondary); border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+        .header-name { color: var(--accent-cyan); min-width: 200px; }
+        .header-value { color: var(--text-secondary); }
+
+        /* Lists */
+        .check-list { list-style: none; margin: 2rem 0; }
+        .check-list li { padding: 0.5rem 0; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 0.75rem; }
+        .check-list li::before { content: '✓'; color: var(--accent-green); font-weight: bold; }
+
+        /* Conclusion */
+        .conclusion { background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 3rem; margin: 4rem 0; }
+        .conclusion h2 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+        .conclusion p { color: var(--text-secondary); }
+        .result-highlight { background: var(--bg-primary); border-left: 4px solid var(--accent-green); padding: 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .result-highlight p { font-size: 1.1rem; color: var(--accent-green); font-weight: 500; margin: 0; }
+
+        /* Footer */
+        .doc-footer { border-top: 1px solid var(--border-color); padding: 4rem 0 2rem; margin-top: 4rem; text-align: center; }
+        .doc-footer p { color: var(--text-muted); margin: 0.5rem 0; }
+        .doc-footer a { color: var(--accent-green); text-decoration: none; }
+        .doc-footer a:hover { text-decoration: underline; }
+        .contact-info { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
+        .contact-info strong { display: block; color: var(--text-primary); margin-bottom: 0.5rem; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover h1 { font-size: 2.5rem; }
+            .document { padding: 6rem 1.5rem 2rem; }
+            .header-item { flex-direction: column; gap: 0.25rem; }
+            .header-name { min-width: auto; }
+            .flow-row { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <div class="nav-logo-icon">ACM</div>
+                <span>ACM-68000</span>
+            </a>
+            <div class="nav-links">
+                <a href="../">← Back to Protocol</a>
+                <a href="https://github.com/allooloo/acm-68000" target="_blank">GitHub</a>
+                <a href="../docs/ACM-68000_Founders_Document.pdf" class="btn-download" download>↓ Download PDF</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="document">
+        <!-- Cover -->
+        <div class="cover">
+            <div class="cover-badge">CONFIDENTIAL — Datalake Operator Grade</div>
+            <h1>ACM-<span>68000</span></h1>
+            <p class="cover-subtitle">Agentic Commerce Manifest Protocol</p>
+            <p class="cover-subtitle" style="color: var(--text-muted); font-size: 1.1rem;">Founder's Document</p>
+            <p class="cover-meta">Operating Design Reference & White Paper<br>First Enterprise-Grade MCP with Security Stack</p>
+            <div class="cover-company">
+                <strong>Allooloo Technologies Corp.</strong>
+                <p>Vancouver, Canada | Barcelona, Spain</p>
+                <p>April 2026</p>
+            </div>
+        </div>
+
+        <!-- TOC -->
+        <div class="toc">
+            <h2>Contents</h2>
+            <ol class="toc-list">
+                <li><a href="#thesis"><span class="toc-number">01</span> Thesis</a></li>
+                <li><a href="#problem"><span class="toc-number">02</span> Problem Statement</a></li>
+                <li><a href="#solution"><span class="toc-number">03</span> The Solution: Two Tenants, One Loop</a></li>
+                <li><a href="#signals"><span class="toc-number">04</span> The 7 Signals</a></li>
+                <li><a href="#headers"><span class="toc-number">05</span> Agentic Ghost Headers</a></li>
+                <li><a href="#roundtrip"><span class="toc-number">06</span> Signal Round Trip</a></li>
+                <li><a href="#security"><span class="toc-number">07</span> Security Stack — First Ever for MCP</a></li>
+                <li><a href="#proof"><span class="toc-number">08</span> Live Proof — Test Commands</a></li>
+                <li><a href="#urls"><span class="toc-number">09</span> Complete URL Reference</a></li>
+                <li><a href="#conclusion"><span class="toc-number">10</span> Conclusion</a></li>
+            </ol>
+        </div>
+
+        <!-- Section 1: Thesis -->
+        <div class="section" id="thesis">
+            <div class="section-number">01</div>
+            <h2>Thesis</h2>
+            
+            <div class="thesis-box">
+                <p>Large Language Models on hyperscaler fabric have known drift. The web they navigate is 90% synthetic slop and 51% bot traffic. Traditional agent-to-agent communication requires interpretation — a liability when instruments are unreliable and the ocean is hostile.</p>
+            </div>
+
+            <p>ACM-68000 solves this by applying the same principles mariners used for millennia: <strong>fixed trusted anchors</strong> for triangulation against drift, and <strong>counterparty verification</strong> to confirm signals arrived intact.</p>
+
+            <h3>The Navigation Metaphor</h3>
+            <p>In celestial navigation, you don't trust the ocean — it moves, it lies, it kills. You trust fixed points in the sky that have been there for millennia. Sailors could cross oceans because Polaris doesn't move.</p>
+            <p>In shortwave radio and cryptography, you need counterparties — known trusted stations with verified call signs. A signal isn't valid until the receiver confirms it.</p>
+            <p>ACM-68000 combines both: fixed infrastructure anchors (two geographically separate Azure tenants) that LLMs can triangulate against, plus a receiver station that confirms every signal. The result is deterministic commerce execution in <strong>&lt;40ms</strong>, with zero interpretation required.</p>
+
+            <h3>Two Byproducts</h3>
+            <table>
+                <tr>
+                    <td>Trust Anchoring</td>
+                    <td>External fixed points that agents can triangulate against, preventing hallucination and confabulation in commerce decisions.</td>
+                </tr>
+                <tr>
+                    <td>Elevation Above the Slop</td>
+                    <td>Business-critical signals travel via Ghost Headers, invisible to the garbage web, elevated above the noise floor where 90% is synthetic and 51% is automated.</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Section 2: Problem -->
+        <div class="section" id="problem">
+            <div class="section-number">02</div>
+            <h2>Problem Statement</h2>
+
+            <h3>The Three Failures</h3>
+            <table>
+                <thead>
+                    <tr><th>Failure</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hyperscaler Drift</td>
+                        <td>LLMs on cloud fabric hallucinate, lose context, confabulate. The instruments are unreliable. You cannot trust an agent's "reasoning" for commerce decisions.</td>
+                    </tr>
+                    <tr>
+                        <td>Hostile Web</td>
+                        <td>90% of web content is now synthetic. 51% of traffic is automated bots. Agents navigating this landfill are interpreting garbage. Interpretation is a liability.</td>
+                    </tr>
+                    <tr>
+                        <td>No Counterparty</td>
+                        <td>Traditional A2A has no verification. Agents "discuss" purchases, "reason" about intent. There's no receiver station confirming the signal arrived. No proof of transmission.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Traditional A2A vs. ACM-68000</h3>
+            <table>
+                <thead>
+                    <tr><th>Traditional A2A</th><th>ACM-68000</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Agent "discusses" purchase</td><td>Agent issues machine-executable signal</td></tr>
+                    <tr><td>LLM "reasons" about intent</td><td>Keyword-to-schema mapping (&lt;40ms)</td></tr>
+                    <tr><td>Variable text response</td><td>Fixed 7-signal vocabulary</td></tr>
+                    <tr><td>Requires interpretation</td><td>Pipes directly to ERP/Dataverse</td></tr>
+                    <tr><td>No audit trail</td><td>Every signal logged in InboundEvents</td></tr>
+                    <tr><td>Hope-based execution</td><td>CEO dashboard visibility</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 3: Solution -->
+        <div class="section" id="solution">
+            <div class="section-number">03</div>
+            <h2>The Solution: Two Tenants, One Loop</h2>
+
+            <h3>Infrastructure Overview</h3>
+            <table>
+                <thead>
+                    <tr><th>Tenant</th><th>Role</th><th>Key URLs</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1 — Broadcast</td>
+                        <td>Signals OUT</td>
+                        <td>dpuone.ai, mcp.10060.ai, acm-000.ai → acm-500.ai</td>
+                    </tr>
+                    <tr>
+                        <td>#2 — Receiver</td>
+                        <td>Signals BACK + Security</td>
+                        <td>7signalingress.ai, aio-router.ai, 7signalrefinery.ai</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Tenant #1 — Signal Source / Broadcast</h3>
+            <p><strong>Resource Group:</strong> rg-waypoint-10060-fr<br>
+            <strong>Region:</strong> Azure France Central (EU sovereign)</p>
+            <ul class="check-list">
+                <li><strong>dpuone.ai</strong> — Digital Proof Unit (GTIN origin, jurisdiction verification)</li>
+                <li><strong>mcp.10060.ai</strong> — MCP Server (first CPG MCP in official registry)</li>
+                <li><strong>acm-000.ai through acm-500.ai</strong> — The 7 Signal nodes</li>
+            </ul>
+
+            <h3>Tenant #2 — Receiver + Security Stack</h3>
+            <p><strong>Resource Group:</strong> rg-7signalfoundry-fr<br>
+            <strong>Account:</strong> Microsoft AI Partner Program</p>
+            <ul class="check-list">
+                <li><strong>7signalfoundry.ai</strong> — Forges signal infrastructure</li>
+                <li><strong>7signalingress.ai</strong> — Receives agent POST-backs (/ingest endpoint)</li>
+                <li><strong>aio-router.ai</strong> — CEO Dashboard (real-time signal visibility)</li>
+                <li><strong>7signalrefinery.ai</strong> — Enterprise signal processing</li>
+                <li><strong>7signalrefinery.org</strong> — MIT Protocol specification</li>
+                <li><strong>7signalstack.ai</strong> — Protocol standard documentation</li>
+            </ul>
+
+            <h3>Why Two Tenants?</h3>
+            <div class="thesis-box">
+                <p>Broadcast ≠ Receiver. Separate trust domains. Like shortwave radio: the transmitting station and receiving station are independent. If Tenant #1 is compromised, Tenant #2 can still validate. If an agent spoofs a signal, the receiver on Tenant #2 won't match. No single point of failure.</p>
+            </div>
+        </div>
+
+        <!-- Section 4: Signals -->
+        <div class="section" id="signals">
+            <div class="section-number">04</div>
+            <h2>The 7 Signals</h2>
+            <p>Every commerce decision resolves to exactly one of seven deterministic states. No interpretation. No reasoning. Just execution.</p>
+
+            <div class="signal-grid">
+                <div class="signal-card">
+                    <div class="signal-dot" style="background: #888888;"></div>
+                    <div><div class="signal-code">acm-000.ai</div><div class="signal-state">Not Applicable — Idle</div></div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-dot" style="background: #1D9E75;"></div>
+                    <div><div class="signal-code">acm-200.ai</div><div class="signal-state">Allow — Execute</div></div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-dot" style="background: #EF9F27;"></div>
+                    <div><div class="signal-code">acm-300.ai</div><div class="signal-state">Conditional — Verify</div></div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-dot" style="background: #E24B4A;"></div>
+                    <div><div class="signal-code">acm-403.ai</div><div class="signal-state">Restrict — Blocked</div></div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-dot" style="background: #444444;"></div>
+                    <div><div class="signal-code">acm-404.ai</div><div class="signal-state">Not Found — Missing</div></div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-dot" style="background: #E24B4A;"></div>
+                    <div><div class="signal-code">acm-451.ai</div><div class="signal-state">Escalate — Human Needed</div></div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-dot" style="background: #7F77DD;"></div>
+                    <div><div class="signal-code">acm-500.ai</div><div class="signal-state">System Error — Retry</div></div>
+                </div>
+            </div>
+
+            <h3>Why 7 Signals?</h3>
+            <ul class="check-list">
+                <li><strong>Minimal:</strong> Covers all possible agentic commerce outcomes</li>
+                <li><strong>Universal:</strong> Maps to HTTP status codes developers already understand</li>
+                <li><strong>Deterministic:</strong> No ambiguity, no interpretation required</li>
+                <li><strong>Cacheable:</strong> Can be cached at edge indefinitely</li>
+                <li><strong>Machine-readable:</strong> HTTP headers, not prose</li>
+            </ul>
+        </div>
+
+        <!-- Section 5: Headers -->
+        <div class="section" id="headers">
+            <div class="section-number">05</div>
+            <h2>Agentic Ghost Headers</h2>
+            <p>HTTP response headers that every ACM-68000 node returns. Called "Ghost" because:</p>
+            <ul class="check-list">
+                <li><strong>Invisible to humans</strong> (they don't see HTTP headers in a browser)</li>
+                <li><strong>Visible to AI agents</strong> (they read headers programmatically)</li>
+            </ul>
+
+            <h3>The Complete Header Set (15+ Headers)</h3>
+            <div class="header-grid">
+                <div class="header-item"><span class="header-name">X-GSC-Protocol:</span><span class="header-value">ACM-68000</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Signal:</span><span class="header-value">ACM-200 (current state)</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-State:</span><span class="header-value">ALLOW (human-readable)</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Router:</span><span class="header-value">aio-router.ai</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Stack:</span><span class="header-value">7SignalStack</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Operator:</span><span class="header-value">Allooloo Technologies Corp.</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Version:</span><span class="header-value">1.2.1</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Inbound:</span><span class="header-value">https://7signalingress.ai/ingest</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Trust-Anchor:</span><span class="header-value">dpuone.ai</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Verify:</span><span class="header-value">/.well-known/acm-68000.json</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Timestamp:</span><span class="header-value">&lt;ISO-8601&gt; (freshness)</span></div>
+                <div class="header-item"><span class="header-name">X-GSC-Nonce:</span><span class="header-value">&lt;unique-request-id&gt; (anti-replay)</span></div>
+                <div class="header-item"><span class="header-name">X-MCP-Server:</span><span class="header-value">https://mcp.10060.ai</span></div>
+                <div class="header-item"><span class="header-name">X-MCP-Registry:</span><span class="header-value">io.github.allooloo/acm-68000-mcp</span></div>
+                <div class="header-item"><span class="header-name">X-Agent-Access:</span><span class="header-value">Claude,OpenAI,Gemini,Mistral,Grok</span></div>
+            </div>
+        </div>
+
+        <!-- Section 6: Round Trip -->
+        <div class="section" id="roundtrip">
+            <div class="section-number">06</div>
+            <h2>Signal Round Trip</h2>
+
+            <h3>Outbound — Signals OUT (Tenant #1)</h3>
+            <div class="flow-diagram">
+                <div class="flow-row">
+                    <div class="flow-step">Agent</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">mcp.10060.ai</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">dpuone.ai</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step" style="border-color: var(--accent-green);">Signal + 15 Ghost Headers</div>
+                </div>
+                <p class="flow-label">Every response includes X-GSC-Inbound pointing to Tenant #2</p>
+            </div>
+
+            <h3>Inbound — Signals BACK (Tenant #2)</h3>
+            <div class="flow-diagram">
+                <div class="flow-row">
+                    <div class="flow-step">Agent POST</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">Front Door</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">WAF</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">Dataverse</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step" style="border-color: var(--accent-green);">CEO Dashboard</div>
+                </div>
+            </div>
+
+            <h3>The Receiver Station — Technical Flow</h3>
+            <p>This is the breakthrough — the counterparty that completes the cryptographic handshake:</p>
+            <table>
+                <thead><tr><th>Step</th><th>Action</th></tr></thead>
+                <tbody>
+                    <tr><td>1. INPUT</td><td>AI Agent sends: "Need 4 pallets diapers Madrid"</td></tr>
+                    <tr><td>2. PARSE</td><td>Parser extracts: cluster=HYGIENE, qty=4, region=ES-MAD, gtin=null</td></tr>
+                    <tr><td>3. RESOLVE</td><td>Signal resolver → ACM-300 (CONDITIONAL) because GTIN missing</td></tr>
+                    <tr><td>4. WRITE</td><td>OData client POSTs to Dataverse (cr1e4_inboundeventses table)</td></tr>
+                    <tr><td>5. DISPLAY</td><td>CEO sees signal in Power Apps dashboard with color coding</td></tr>
+                </tbody>
+            </table>
+
+            <div class="result-highlight">
+                <p>The signal lands in the CEO dashboard before a traditional A2A system would finish its first reasoning step. Target &lt;40ms total latency. FaF principles in play.</p>
+            </div>
+        </div>
+
+        <!-- Section 7: Security -->
+        <div class="section" id="security">
+            <div class="section-number">07</div>
+            <h2>Security Stack — First Ever for MCP</h2>
+            <p>All security infrastructure is deployed on Tenant #2 (the receiver). This is the first MCP with enterprise-grade security.</p>
+
+            <table>
+                <thead><tr><th>Layer</th><th>Function</th></tr></thead>
+                <tbody>
+                    <tr><td>Azure Front Door Premium</td><td>Global load balancing, CDN, edge delivery, entry point for all inbound signals</td></tr>
+                    <tr><td>WAF</td><td>DDoS protection, bot filtering, OWASP ruleset, rate limiting</td></tr>
+                    <tr><td>Managed Identity</td><td>No secrets in code — Azure handles authentication</td></tr>
+                    <tr><td>Dataverse</td><td>InboundEvents table, row-level security, enterprise audit trail</td></tr>
+                    <tr><td>Power Apps</td><td>CEO Dashboard at aio-router.ai, RBAC (Role-Based Access Control)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Trust Model</h3>
+            <table>
+                <thead><tr><th>Anchor</th><th>Provider</th><th>Purpose</th></tr></thead>
+                <tbody>
+                    <tr><td>Azure Paris</td><td>Microsoft</td><td>EU sovereign hosting, GDPR compliance</td></tr>
+                    <tr><td>Cloudflare</td><td>Cloudflare</td><td>TLS 1.3, WAF, DDoS protection, edge delivery</td></tr>
+                    <tr><td>Domain Control</td><td>Allooloo</td><td>Exclusive control of all .ai signal domains</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Security Mitigations</h3>
+            <table>
+                <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+                <tbody>
+                    <tr><td>Domain Spoofing</td><td>TLS certificate validation + allowed domain list</td></tr>
+                    <tr><td>Man-in-the-Middle</td><td>TLS 1.3 + Cloudflare encrypted tunnel</td></tr>
+                    <tr><td>Replay Attacks</td><td>X-GSC-Timestamp + X-GSC-Nonce</td></tr>
+                    <tr><td>Header Injection</td><td>Cloudflare WAF strips malicious headers</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 8: Proof -->
+        <div class="section" id="proof">
+            <div class="section-number">08</div>
+            <h2>Live Proof — Test Commands</h2>
+            <p>The following commands can be run right now to verify the system is operational:</p>
+
+            <h3>Health Check</h3>
+            <div class="code-block">
+                <code>
+<span class="code-comment"># Check receiver station health</span>
+curl https://aio-orderable-h4gfg8bwbyb2d5az.francecentral-01.azurewebsites.net/health
+
+<span class="code-comment"># Expected response:</span>
+{"status":"ok","version":"1.3.0","dataverse_configured":true}
+                </code>
+            </div>
+
+            <h3>Test Ingest Endpoint</h3>
+            <div class="code-block">
+                <code>
+curl -X POST "https://aio-orderable-h4gfg8bwbyb2d5az.francecentral-01.azurewebsites.net/ingest" \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Need 4 pallets diapers Madrid", "sender": "test-agent"}'
+
+<span class="code-comment"># Expected response:</span>
+{"dataverse_saved": true, "signal": "acm-300.ai", ...}
+                </code>
+            </div>
+
+            <h3>Check Ghost Headers</h3>
+            <div class="code-block">
+                <code>
+curl -I https://7signalrefinery.ai
+
+<span class="code-comment"># Expected: X-GSC-Protocol, X-GSC-Signal, X-GSC-Operator headers present</span>
+                </code>
+            </div>
+        </div>
+
+        <!-- Section 9: URLs -->
+        <div class="section" id="urls">
+            <div class="section-number">09</div>
+            <h2>Complete URL Reference</h2>
+
+            <h3>Tenant #1 — Broadcast Infrastructure</h3>
+            <table>
+                <thead><tr><th>URL</th><th>Role</th></tr></thead>
+                <tbody>
+                    <tr><td>dpuone.ai</td><td>Digital Proof Unit — GTIN origin, jurisdiction verification</td></tr>
+                    <tr><td>mcp.10060.ai</td><td>MCP Server — first CPG MCP in official registry</td></tr>
+                    <tr><td>acm-000.ai</td><td>NOT_APPLICABLE signal node</td></tr>
+                    <tr><td>acm-200.ai</td><td>ALLOW signal node</td></tr>
+                    <tr><td>acm-300.ai</td><td>CONDITIONAL signal node</td></tr>
+                    <tr><td>acm-403.ai</td><td>RESTRICT signal node</td></tr>
+                    <tr><td>acm-404.ai</td><td>NOT_FOUND signal node</td></tr>
+                    <tr><td>acm-451.ai</td><td>ESCALATE signal node</td></tr>
+                    <tr><td>acm-500.ai</td><td>SYSTEM_ERROR signal node</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Tenant #2 — Receiver Infrastructure</h3>
+            <table>
+                <thead><tr><th>URL</th><th>Role</th></tr></thead>
+                <tbody>
+                    <tr><td>7signalfoundry.ai</td><td>Forges signal infrastructure</td></tr>
+                    <tr><td>7signalingress.ai</td><td>Receives agent POST-backs (/ingest endpoint)</td></tr>
+                    <tr><td>aio-router.ai</td><td>CEO Dashboard — real-time signal visibility</td></tr>
+                    <tr><td>7signalrefinery.ai</td><td>Enterprise signal processing</td></tr>
+                    <tr><td>7signalrefinery.org</td><td>MIT Protocol specification</td></tr>
+                    <tr><td>7signalstack.ai</td><td>Protocol standard documentation</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 10: Conclusion -->
+        <div class="conclusion" id="conclusion">
+            <div class="section-number">10</div>
+            <h2>Conclusion</h2>
+            <p>ACM-68000 is the first Model Context Protocol with enterprise-grade security, counterparty verification, and deterministic signal execution. It applies the principles of celestial navigation and shortwave radio to the problem of LLM drift on hyperscaler fabric.</p>
+
+            <h3>What We Built</h3>
+            <ul class="check-list">
+                <li><strong>Two-tenant trust architecture</strong> — Broadcast (Tenant #1) and Receiver (Tenant #2) are separate trust domains</li>
+                <li><strong>Fixed trusted anchors</strong> — Like shortwave radio stations with known call signs</li>
+                <li><strong>Counterparty verification</strong> — The receiver station (7signalingress.ai) confirms every signal</li>
+                <li><strong>Agentic Ghost Headers</strong> — Invisible to humans, visible to AI agents, machine-readable identity</li>
+                <li><strong>Enterprise security stack</strong> — First MCP with Front Door Premium, WAF, Managed Identity, Dataverse, Power Apps</li>
+                <li><strong>CEO visibility</strong> — Real-time dashboard showing every signal as it lands</li>
+            </ul>
+
+            <div class="result-highlight">
+                <p>Deterministic commerce execution in targeted &lt;40ms. FaF! Zero interpretation. Zero reasoning. Signals out from Tenant #1, signals back to Tenant #2. Full loop. First ever for MCP.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="doc-footer">
+            <p>— END OF DOCUMENT —</p>
+            <p><strong>Allooloo Technologies Corp.</strong></p>
+            <p><a href="https://github.com/allooloo/acm-68000" target="_blank">github.com/allooloo/acm-68000</a></p>
+            <p>MIT License</p>
+            
+            <div class="contact-info">
+                <strong>Matthew Keddy</strong>
+                <p>Chief Executive Officer<br>Allooloo Technologies Corp.</p>
+                <p><a href="mailto:mkeddy@allooloo.com">mkeddy@allooloo.com</a> | +1 647 237 7744</p>
+                <p>Canada — 304–6687 Nelson Avenue, West Vancouver, BC V7W 2B2<br>
+                Europe — C/ Joan Salvat Papasseit 23, 08870 Sitges, Barcelona, Spain</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
