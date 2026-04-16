@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mcp.10060.ai — First MCP for CPG</title>
+
+<!-- Ghost Headers for AI Agents -->
+<meta name="X-GSC-Protocol" content="ACM-68000">
+<meta name="X-GSC-Signal" content="ACM-200">
+<meta name="X-GSC-State" content="ALLOW">
+<meta name="X-GSC-Operator" content="Allooloo Technologies Corp.">
+<meta name="X-GSC-Registry" content="io.github.allooloo/acm-68000-mcp">
+<meta name="X-GSC-Trust-Anchor" content="dpuone.ai">
+<meta name="X-MCP-Server" content="https://mcp.10060.ai">
+<meta name="X-Agent-Access" content="Claude,Mistral,Gemini,Grok,OpenAI">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --black: #080808;
+    --white: #f0ede8;
+    --gold: #c9a84c;
+    --gold-dim: #8a6f2e;
+    --green: #1d9e75;
+    --purple: #7f77dd;
+    --red: #e24b4a;
+    --amber: #ef9f27;
+    --grid: rgba(201, 168, 76, 0.06);
+    --border: rgba(201, 168, 76, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Radial glow */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HEADER */
+  header {
+    padding: 32px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .lang-toggle {
+    display: flex;
+    gap: 4px;
+  }
+
+  .lang-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active,
+  .lang-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--gold-dim);
+    margin-bottom: 40px;
+  }
+
+  .badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 7vw, 72px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  h1 span {
+    color: var(--gold);
+  }
+
+  .tagline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 400;
+    color: rgba(240,237,232,0.5);
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+  }
+
+  .tagline-fr {
+    display: none;
+    font-style: italic;
+  }
+
+  .signal-flow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--gold-dim);
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .signal-flow span {
+    color: var(--gold);
+  }
+
+  .signal-flow .arrow {
+    color: var(--gold-dim);
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: 1px solid;
+    transition: all 0.2s;
+    cursor: pointer;
+    background: none;
+  }
+
+  .btn-primary {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .btn-secondary {
+    border-color: var(--border);
+    color: rgba(240,237,232,0.6);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--white);
+    color: var(--white);
+  }
+
+  /* SIGNALS */
+  .signals {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 32px;
+  }
+
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .signal-item {
+    background: var(--black);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: background 0.2s;
+  }
+
+  .signal-item:hover {
+    background: rgba(201,168,76,0.04);
+  }
+
+  .signal-code {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--gold-dim);
+  }
+
+  .signal-state {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .signal-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+  /* CONNECT */
+  .connect {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-block {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin: 24px 0;
+    overflow-x: auto;
+  }
+
+  .code-block pre {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    color: rgba(240,237,232,0.7);
+    white-space: pre;
+  }
+
+  .code-block .comment { color: var(--gold-dim); }
+  .code-block .key { color: var(--gold); }
+  .code-block .val { color: var(--green); }
+  .code-block .url { color: var(--purple); }
+
+  /* TOOLS */
+  .tools {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 32px;
+  }
+
+  .tool-item {
+    background: var(--black);
+    padding: 18px 20px;
+    transition: background 0.2s;
+  }
+
+  .tool-item:hover { background: rgba(201,168,76,0.04); }
+
+  .tool-name {
+    color: var(--gold);
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .tool-desc {
+    color: rgba(240,237,232,0.4);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  /* INFRA */
+  .infra {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .infra-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.07);
+    gap: 20px;
+  }
+
+  .infra-row:last-child { border-bottom: none; }
+
+  .infra-label {
+    color: rgba(240,237,232,0.4);
+    font-size: 12px;
+    min-width: 160px;
+  }
+
+  .infra-value {
+    color: var(--white);
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .infra-value.live { color: var(--green); }
+  .infra-value.gold { color: var(--gold); }
+
+  /* PHILOSOPHY */
+  .philosophy {
+    padding: 80px 0;
+    text-align: center;
+  }
+
+  .philosophy-text {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 600;
+    line-height: 1.6;
+    color: rgba(240,237,232,0.7);
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+
+  .philosophy-text em {
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 16px;
+  }
+
+  .footer-left {
+    font-size: 11px;
+    color: rgba(240,237,232,0.3);
+    letter-spacing: 0.08em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-size: 11px;
+    color: rgba(240,237,232,0.3);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* Azure badge */
+  .azure-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: rgba(240,237,232,0.4);
+    margin-top: 40px;
+  }
+
+  .azure-badge::before {
+    content: '▲';
+    color: #0089d6;
+    font-size: 10px;
+  }
+
+  /* FR hidden by default */
+  .fr { display: none; }
+  .en { display: block; }
+  span.fr { display: none; }
+  span.en { display: inline; }
+
+  body.lang-fr .fr { display: block; }
+  body.lang-fr .en { display: none; }
+  body.lang-fr span.fr { display: inline; }
+  body.lang-fr span.en { display: none; }
+  body.lang-fr .tagline-fr { display: block; }
+  body.lang-fr .tagline-en { display: none; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="logo">mcp.10060.ai</div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('fr')">FR</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">
+      <span class="en">LIVE — FIRST CPG MCP IN OFFICIAL REGISTRY</span>
+      <span class="fr">EN LIGNE — PREMIER MCP CPG AU REGISTRE OFFICIEL</span>
+    </div>
+
+    <h1>seven-signal-<span>foundry</span></h1>
+
+    <p class="tagline tagline-en">The first MCP server for Consumer Packaged Goods.</p>
+    <p class="tagline tagline-fr">Le premier serveur MCP pour les biens de consommation.</p>
+
+    <div class="signal-flow">
+      <span>Agent</span>
+      <span class="arrow">→</span>
+      <span>MCP</span>
+      <span class="arrow">→</span>
+      <span>Signal</span>
+      <span class="arrow">→</span>
+      <span>ERP</span>
+      <span class="arrow">→</span>
+      <span style="color:var(--green)">ACM-200 ALLOW</span>
+    </div>
+
+    <div class="cta-row">
+      <a href="https://registry.modelcontextprotocol.io/?q=io.github.allooloo" class="btn btn-primary" target="_blank">
+        <span class="en">MCP Registry →</span>
+        <span class="fr">Registre MCP →</span>
+      </a>
+      <a href="https://github.com/allooloo/acm-68000" class="btn btn-secondary" target="_blank">
+        GitHub / MIT
+      </a>
+    </div>
+
+    <div class="azure-badge">
+      AZURE FRANCE CENTRAL · PARIS · EU SOVEREIGN · GDPR
+    </div>
+  </section>
+
+  <!-- 7 SIGNALS -->
+  <section class="signals">
+    <div class="section-label">
+      <span class="en">The 7 Signals — One meaning. No drift.</span>
+      <span class="fr">Les 7 Signaux — Une signification. Aucune dérive.</span>
+    </div>
+    <div class="signal-grid">
+      <div class="signal-item">
+        <div class="signal-code">ACM-000</div>
+        <div class="signal-state"><span class="signal-dot" style="background:#888888"></span>NOT_APPLICABLE</div>
+      </div>
+      <div class="signal-item">
+        <div class="signal-code">ACM-200</div>
+        <div class="signal-state"><span class="signal-dot" style="background:#1d9e75"></span>ALLOW</div>
+      </div>
+      <div class="signal-item">
+        <div class="signal-code">ACM-300</div>
+        <div class="signal-state"><span class="signal-dot" style="background:#ef9f27"></span>CONDITIONAL</div>
+      </div>
+      <div class="signal-item">
+        <div class="signal-code">ACM-403</div>
+        <div class="signal-state"><span class="signal-dot" style="background:#e24b4a"></span>RESTRICT</div>
+      </div>
+      <div class="signal-item">
+        <div class="signal-code">ACM-404</div>
+        <div class="signal-state"><span class="signal-dot" style="background:#444444"></span>NOT_FOUND</div>
+      </div>
+      <div class="signal-item">
+        <div class="signal-code">ACM-451</div>
+        <div class="signal-state"><span class="signal-dot" style="background:#e24b4a"></span>ESCALATE</div>
+      </div>
+      <div class="signal-item">
+        <div class="signal-code">ACM-500</div>
+        <div class="signal-state"><span class="signal-dot" style="background:#7f77dd"></span>SYSTEM_ERROR</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONNECT -->
+  <section class="connect">
+    <div class="section-label">
+      <span class="en">Connect your agent</span>
+      <span class="fr">Connectez votre agent</span>
+    </div>
+
+    <div class="code-block">
+      <pre><span class="comment"># Claude Desktop — claude_desktop_config.json</span>
+{
+  <span class="key">"mcpServers"</span>: {
+    <span class="key">"acm-68000"</span>: {
+      <span class="key">"url"</span>: <span class="url">"https://mcp.10060.ai"</span>
+    }
+  }
+}</pre>
+    </div>
+
+    <div class="code-block">
+      <pre><span class="comment"># Verify — tools/list handshake</span>
+curl -X POST <span class="url">https://apim-ghost-signal.azure-api.net/seven-signal-foundry/mcp</span> \
+  -H <span class="val">"Content-Type: application/json"</span> \
+  -d <span class="val">'{"jsonrpc":"2.0","method":"tools/list","id":1}'</span>
+
+<span class="comment"># French sovereign commerce flag</span>
+-H <span class="val">"X-MCP-Flag: --fr-eco-10060"</span></pre>
+    </div>
+  </section>
+
+  <!-- 15 TOOLS -->
+  <section class="tools">
+    <div class="section-label">
+      <span class="en">15 Tools — Live</span>
+      <span class="fr">15 Outils — En ligne</span>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-item"><div class="tool-name">listSignals</div><div class="tool-desc en">Returns all 7 ACM signals + domains</div><div class="tool-desc fr">Retourne les 7 signaux ACM</div></div>
+      <div class="tool-item"><div class="tool-name">ingestSignal</div><div class="tool-desc en">POST signal → Dataverse ledger</div><div class="tool-desc fr">Envoie un signal → registre Dataverse</div></div>
+      <div class="tool-item"><div class="tool-name">getInbound</div><div class="tool-desc en">Ingress URL + payload schema</div><div class="tool-desc fr">URL d'entrée + schéma de données</div></div>
+      <div class="tool-item"><div class="tool-name">resolveGtin</div><div class="tool-desc en">GTIN → ACM signal + compliance</div><div class="tool-desc fr">GTIN → signal ACM + conformité</div></div>
+      <div class="tool-item"><div class="tool-name">getDpu</div><div class="tool-desc en">Digital Proof Unit — GTIN notary Paris</div><div class="tool-desc fr">Unité de preuve numérique — Paris</div></div>
+      <div class="tool-item"><div class="tool-name">getEsgReport</div><div class="tool-desc en">ESG — CSRD, Loi AGEC, EU Taxonomy</div><div class="tool-desc fr">ESG — CSRD, Loi AGEC, Taxonomie UE</div></div>
+      <div class="tool-item"><div class="tool-name">getHealth</div><div class="tool-desc en">Live stack status — 98.2% SQR, 38ms</div><div class="tool-desc fr">État du réseau en direct — 38ms</div></div>
+      <div class="tool-item"><div class="tool-name">getNodes</div><div class="tool-desc en">18 jurisdiction nodes</div><div class="tool-desc fr">18 nœuds juridictionnels</div></div>
+      <div class="tool-item"><div class="tool-name">getGoogleBridge</div><div class="tool-desc en">Google Cloud Madrid ESG bridge</div><div class="tool-desc fr">Pont ESG Google Cloud Madrid</div></div>
+      <div class="tool-item"><div class="tool-name">getCarbon</div><div class="tool-desc en">Carbon-aware compute — 0.15g CO₂/query</div><div class="tool-desc fr">Calcul carbone — 0,15g CO₂/requête</div></div>
+      <div class="tool-item"><div class="tool-name">getResolver</div><div class="tool-desc en">AI-native signal resolver</div><div class="tool-desc fr">Résolveur de signaux natif IA</div></div>
+      <div class="tool-item"><div class="tool-name">getMcp</div><div class="tool-desc en">Root MCP manifest</div><div class="tool-desc fr">Manifeste MCP racine</div></div>
+      <div class="tool-item"><div class="tool-name">getErp</div><div class="tool-desc en">ERP bridge — SAP, Oracle, Dynamics</div><div class="tool-desc fr">Pont ERP — SAP, Oracle, Dynamics</div></div>
+      <div class="tool-item"><div class="tool-name">getMcpFrance</div><div class="tool-desc en">French sovereign CPG — FR-ECO-10060</div><div class="tool-desc fr">Commerce souverain FR — FR-ECO-10060</div></div>
+      <div class="tool-item"><div class="tool-name">getFaf</div><div class="tool-desc en">Fast As Fuck Labs — protocol live edge</div><div class="tool-desc fr">Laboratoire FAF — bord vif du protocole</div></div>
+    </div>
+  </section>
+
+  <!-- INFRA -->
+  <section class="infra">
+    <div class="section-label">
+      <span class="en">Infrastructure</span>
+      <span class="fr">Infrastructure</span>
+    </div>
+    <div class="infra-row"><span class="infra-label">Azure Paris</span><span class="infra-value live">LIVE</span></div>
+    <div class="infra-row"><span class="infra-label">GCP Madrid</span><span class="infra-value live">LIVE</span></div>
+    <div class="infra-row"><span class="infra-label"><span class="en">Latency avg</span><span class="fr">Latence moyenne</span></span><span class="infra-value gold">38ms</span></div>
+    <div class="infra-row"><span class="infra-label"><span class="en">Signal quality</span><span class="fr">Qualité du signal</span></span><span class="infra-value gold">98.2% SQR</span></div>
+    <div class="infra-row"><span class="infra-label">CO₂ / <span class="en">query</span><span class="fr">requête</span></span><span class="infra-value">0.15g</span></div>
+    <div class="infra-row"><span class="infra-label">Drift</span><span class="infra-value live">NONE</span></div>
+    <div class="infra-row"><span class="infra-label"><span class="en">Active agents</span><span class="fr">Agents actifs</span></span><span class="infra-value">Claude · Mistral</span></div>
+    <div class="infra-row"><span class="infra-label"><span class="en">Jurisdiction nodes</span><span class="fr">Nœuds juridictionnels</span></span><span class="infra-value">18/18</span></div>
+    <div class="infra-row"><span class="infra-label"><span class="en">Registry</span><span class="fr">Registre</span></span><span class="infra-value" style="font-size:11px">io.github.allooloo/acm-68000-mcp</span></div>
+    <div class="infra-row"><span class="infra-label"><span class="en">Trust anchor</span><span class="fr">Ancre de confiance</span></span><span class="infra-value">dpuone.ai</span></div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy">
+    <p class="philosophy-text en">
+      One query. One signal. <em>No interpretation.</em><br>
+      Ghost Headers don't drift.<br>
+      Ghost Routers don't hallucinate.<br>
+      <em>The 7 Signals are true.</em>
+    </p>
+    <p class="philosophy-text fr" style="display:none">
+      Une requête. Un signal. <em>Aucune interprétation.</em><br>
+      Les Ghost Headers ne dérivent pas.<br>
+      Les Ghost Routers n'hallucinent pas.<br>
+      <em>Les 7 Signaux sont vrais.</em>
+    </p>
+    <p style="font-size:12px; color:var(--gold-dim); letter-spacing:0.15em;">
+      <span class="en">THE PROTOCOL IS OPEN. THE RAILS ARE OURS.</span>
+      <span class="fr">LE PROTOCOLE EST OUVERT. LES RAILS SONT LES NÔTRES.</span>
+    </p>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      © 2026 Allooloo Technologies Corp. · Vancouver · Paris · Barcelona<br>
+      <span class="en">First MCP for CPG · April 2026 · Ex Machina.</span>
+      <span class="fr">Premier MCP pour le CPG · Avril 2026 · Ex Machina.</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/allooloo/acm-68000" target="_blank">GitHub</a>
+      <a href="https://dpuone.ai" target="_blank">dpuone.ai</a>
+      <a href="https://resolver.aio-resolver.com" target="_blank">Resolver</a>
+      <a href="https://allooloo.ai" target="_blank">allooloo.ai</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    document.body.className = lang === 'fr' ? 'lang-fr' : '';
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+    // Handle philosophy section separately
+    document.querySelectorAll('.philosophy-text').forEach(el => {
+      el.style.display = 'none';
+    });
+    const activePhil = document.querySelector('.philosophy-text.' + lang);
+    if (activePhil) activePhil.style.display = 'block';
+  }
+
+  // Set EN as default
+  setLang('en');
+</script>
+
+</body>
+</html>
