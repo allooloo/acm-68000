@@ -1,4 +1,4 @@
-# MCP Live — First MCP for CPG - 
+# MCP Live — First MCP for CPG
 
 Fork it. Bring your AI. Build together. 
 
