@@ -1,8 +1,9 @@
-# MCP Live — First MCP for CPG - Fork it. Bring your AI. Build together.
+# MCP Live — First MCP for CPG - 
 
-**Ex Machina. With the help of machines.**
+Fork it. Bring your AI. Build together. 
 
 ---
+**Ex Machina. With the help of machines.**
 
 ## What This Is
 
