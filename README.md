@@ -106,7 +106,7 @@ curl -X POST https://apim-ghost-signal.azure-api.net/ingest/ \
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                aio-tfx-rail.ai                              │
+│                aio-rail.ai                              │
 │                 Execution Rail                              │
 └─────────────────────────────────────────────────────────────┘
 ```
