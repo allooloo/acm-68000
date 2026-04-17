@@ -151,7 +151,7 @@
             <div class="nav-links">
                 <a href="../">← Back to Protocol</a>
                 <a href="https://github.com/allooloo/acm-68000" target="_blank">GitHub</a>
-                <a href="../docs/ACM-68000_Founders_Document.pdf" class="btn-download" download>↓ Download PDF</a>
+                <a href="https://mcp.10060.ai" class="btn-download" target="_blank">↗ MCP Server</a>
             </div>
         </div>
     </nav>
@@ -159,7 +159,7 @@
     <div class="document">
         <!-- Cover -->
         <div class="cover">
-            <div class="cover-badge">CONFIDENTIAL — Datalake Operator Grade</div>
+            <div class="cover-badge">FIRST ENTERPRISE-GRADE MCP FOR CPG — APRIL 2026</div>
             <h1>ACM-<span>68000</span></h1>
             <p class="cover-subtitle">Agentic Commerce Manifest Protocol</p>
             <p class="cover-subtitle" style="color: var(--text-muted); font-size: 1.1rem;">Founder's Document</p>
@@ -182,9 +182,10 @@
                 <li><a href="#headers"><span class="toc-number">05</span> Agentic Ghost Headers</a></li>
                 <li><a href="#roundtrip"><span class="toc-number">06</span> Signal Round Trip</a></li>
                 <li><a href="#security"><span class="toc-number">07</span> Security Stack — First Ever for MCP</a></li>
-                <li><a href="#proof"><span class="toc-number">08</span> Live Proof — Test Commands</a></li>
-                <li><a href="#urls"><span class="toc-number">09</span> Complete URL Reference</a></li>
-                <li><a href="#conclusion"><span class="toc-number">10</span> Conclusion</a></li>
+                <li><a href="#mcp"><span class="toc-number">08</span> MCP Server — seven-signal-foundry</a></li>
+                <li><a href="#proof"><span class="toc-number">09</span> Live Proof — Test Commands</a></li>
+                <li><a href="#urls"><span class="toc-number">10</span> Complete URL Reference</a></li>
+                <li><a href="#conclusion"><span class="toc-number">11</span> Conclusion</a></li>
             </ol>
         </div>
 
@@ -319,31 +320,31 @@
             <div class="signal-grid">
                 <div class="signal-card">
                     <div class="signal-dot" style="background: #888888;"></div>
-                    <div><div class="signal-code">acm-000.ai</div><div class="signal-state">Not Applicable — Idle</div></div>
+                    <div><div class="signal-code">acm-000.ai</div><div class="signal-state">NOT_APPLICABLE — Idle</div></div>
                 </div>
                 <div class="signal-card">
                     <div class="signal-dot" style="background: #1D9E75;"></div>
-                    <div><div class="signal-code">acm-200.ai</div><div class="signal-state">Allow — Execute</div></div>
+                    <div><div class="signal-code">acm-200.ai</div><div class="signal-state">ALLOW — Execute</div></div>
                 </div>
                 <div class="signal-card">
                     <div class="signal-dot" style="background: #EF9F27;"></div>
-                    <div><div class="signal-code">acm-300.ai</div><div class="signal-state">Conditional — Verify</div></div>
+                    <div><div class="signal-code">acm-300.ai</div><div class="signal-state">CONDITIONAL — Verify</div></div>
                 </div>
                 <div class="signal-card">
                     <div class="signal-dot" style="background: #E24B4A;"></div>
-                    <div><div class="signal-code">acm-403.ai</div><div class="signal-state">Restrict — Blocked</div></div>
+                    <div><div class="signal-code">acm-403.ai</div><div class="signal-state">RESTRICT — Blocked</div></div>
                 </div>
                 <div class="signal-card">
                     <div class="signal-dot" style="background: #444444;"></div>
-                    <div><div class="signal-code">acm-404.ai</div><div class="signal-state">Not Found — Missing</div></div>
+                    <div><div class="signal-code">acm-404.ai</div><div class="signal-state">NOT_FOUND — Missing</div></div>
                 </div>
                 <div class="signal-card">
                     <div class="signal-dot" style="background: #E24B4A;"></div>
-                    <div><div class="signal-code">acm-451.ai</div><div class="signal-state">Escalate — Human Needed</div></div>
+                    <div><div class="signal-code">acm-451.ai</div><div class="signal-state">ESCALATE — Human Needed</div></div>
                 </div>
                 <div class="signal-card">
                     <div class="signal-dot" style="background: #7F77DD;"></div>
-                    <div><div class="signal-code">acm-500.ai</div><div class="signal-state">System Error — Retry</div></div>
+                    <div><div class="signal-code">acm-500.ai</div><div class="signal-state">SYSTEM_ERROR — Retry</div></div>
                 </div>
             </div>
 
@@ -451,6 +452,7 @@
                     <tr><td>Azure Front Door Premium</td><td>Global load balancing, CDN, edge delivery, entry point for all inbound signals</td></tr>
                     <tr><td>WAF</td><td>DDoS protection, bot filtering, OWASP ruleset, rate limiting</td></tr>
                     <tr><td>Managed Identity</td><td>No secrets in code — Azure handles authentication</td></tr>
+                    <tr><td>Key Vault (HSM)</td><td>kv-ghost-signal — HSM-backed, cert expires April 2029</td></tr>
                     <tr><td>Dataverse</td><td>InboundEvents table, row-level security, enterprise audit trail</td></tr>
                     <tr><td>Power Apps</td><td>CEO Dashboard at aio-router.ai, RBAC (Role-Based Access Control)</td></tr>
                 </tbody>
@@ -474,36 +476,106 @@
                     <tr><td>Man-in-the-Middle</td><td>TLS 1.3 + Cloudflare encrypted tunnel</td></tr>
                     <tr><td>Replay Attacks</td><td>X-GSC-Timestamp + X-GSC-Nonce</td></tr>
                     <tr><td>Header Injection</td><td>Cloudflare WAF strips malicious headers</td></tr>
+                    <tr><td>Single Point of Failure</td><td>Two-tenant architecture — separate trust domains</td></tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Section 8: Proof -->
-        <div class="section" id="proof">
+        <!-- Section 8: MCP Server -->
+        <div class="section" id="mcp">
             <div class="section-number">08</div>
+            <h2>MCP Server — seven-signal-foundry</h2>
+            <p>The agent-facing entry point into the 7SignalStack. 15 tools. JSON-RPC 2.0 over SSE. Live on Azure APIM Premium, France Central.</p>
+
+            <table>
+                <thead><tr><th>Detail</th><th>Value</th></tr></thead>
+                <tbody>
+                    <tr><td>Public endpoint</td><td>https://mcp.10060.ai</td></tr>
+                    <tr><td>Registry</td><td>io.github.allooloo/acm-68000-mcp</td></tr>
+                    <tr><td>Transport</td><td>JSON-RPC 2.0 / SSE</td></tr>
+                    <tr><td>Infrastructure</td><td>Azure APIM Premium — France Central</td></tr>
+                    <tr><td>Active agents</td><td>Claude (Anthropic), Mistral</td></tr>
+                    <tr><td>Status</td><td>LIVE — April 2026</td></tr>
+                </tbody>
+            </table>
+
+            <h3>15 Tools</h3>
+            <table>
+                <thead><tr><th>Tool</th><th>What It Does</th></tr></thead>
+                <tbody>
+                    <tr><td>listSignals</td><td>Returns all 7 ACM signals + domains</td></tr>
+                    <tr><td>getInbound</td><td>Ingress URL + 16-field payload schema</td></tr>
+                    <tr><td>ingestSignal</td><td>POST signal → Logic App → Dataverse</td></tr>
+                    <tr><td>resolveGtin</td><td>GTIN → ACM signal + compliance check</td></tr>
+                    <tr><td>getDpu</td><td>Digital Proof Unit — GTIN notary Paris</td></tr>
+                    <tr><td>getEsgReport</td><td>ESG — CSRD, Loi AGEC, EU Taxonomy</td></tr>
+                    <tr><td>getHealth</td><td>Live stack status — SQR, latency, drift</td></tr>
+                    <tr><td>getNodes</td><td>18 jurisdiction nodes</td></tr>
+                    <tr><td>getGoogleBridge</td><td>Google Cloud Madrid ESG bridge</td></tr>
+                    <tr><td>getCarbon</td><td>Carbon-aware compute — 0.15g CO₂/query</td></tr>
+                    <tr><td>getResolver</td><td>AI-native signal resolver</td></tr>
+                    <tr><td>getMcp</td><td>Root MCP manifest</td></tr>
+                    <tr><td>getErp</td><td>ERP bridge — SAP S/4HANA, Oracle Fusion, MS Dynamics 365</td></tr>
+                    <tr><td>getMcpFrance</td><td>French sovereign CPG — FR-ECO-10060 flag via Mistral</td></tr>
+                    <tr><td>getFaf</td><td>Fast As Fuck Labs — protocol live edge</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Connect in 60 Seconds</h3>
+            <div class="code-block">
+                <code>
+<span class="code-comment"># Claude Desktop — claude_desktop_config.json</span>
+{
+  "mcpServers": {
+    "acm-68000": {
+      "url": "https://mcp.10060.ai"
+    }
+  }
+}
+                </code>
+            </div>
+        </div>
+
+        <!-- Section 9: Proof -->
+        <div class="section" id="proof">
+            <div class="section-number">09</div>
             <h2>Live Proof — Test Commands</h2>
             <p>The following commands can be run right now to verify the system is operational:</p>
 
-            <h3>Health Check</h3>
+            <h3>Stack Health Check</h3>
             <div class="code-block">
                 <code>
-<span class="code-comment"># Check receiver station health</span>
-curl https://aio-orderable-h4gfg8bwbyb2d5az.francecentral-01.azurewebsites.net/health
+<span class="code-comment"># Call getHealth via MCP — live stack status</span>
+curl -X POST https://apim-ghost-signal.azure-api.net/seven-signal-foundry/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":1,"params":{"name":"getHealth","arguments":{}}}'
 
-<span class="code-comment"># Expected response:</span>
-{"status":"ok","version":"1.3.0","dataverse_configured":true}
+<span class="code-comment"># Expected: OPERATIONAL, 38ms, 98.2% SQR, zero drift</span>
                 </code>
             </div>
 
-            <h3>Test Ingest Endpoint</h3>
+            <h3>List All 7 Signals</h3>
             <div class="code-block">
                 <code>
-curl -X POST "https://aio-orderable-h4gfg8bwbyb2d5az.francecentral-01.azurewebsites.net/ingest" \
+<span class="code-comment"># Call listSignals via MCP</span>
+curl -X POST https://apim-ghost-signal.azure-api.net/seven-signal-foundry/mcp \
   -H "Content-Type: application/json" \
-  -d '{"message": "Need 4 pallets diapers Madrid", "sender": "test-agent"}'
+  -d '{"jsonrpc":"2.0","method":"tools/call","id":2,"params":{"name":"listSignals","arguments":{}}}'
 
-<span class="code-comment"># Expected response:</span>
-{"dataverse_saved": true, "signal": "acm-300.ai", ...}
+<span class="code-comment"># Returns: ACM-000 through ACM-500 with domains and states</span>
+                </code>
+            </div>
+
+            <h3>Send a Signal</h3>
+            <div class="code-block">
+                <code>
+<span class="code-comment"># POST signal directly to ingress</span>
+curl -X POST "https://apim-ghost-signal.azure-api.net/ingest/" \
+  -H "X-GSC-Protocol: ACM-68000" \
+  -H "Content-Type: application/json" \
+  -d '{"sender":"your-agent","signal":"ACM-200","message":"10 pallets diapers Madrid","cluster":"HYGIENE","region":"ES-MAD","quantity":10,"gtin":"00990832300006"}'
+
+<span class="code-comment"># Expected: 202 Accepted — signal lands in Dataverse, visible at aio-router.ai</span>
                 </code>
             </div>
 
@@ -517,9 +589,9 @@ curl -I https://7signalrefinery.ai
             </div>
         </div>
 
-        <!-- Section 9: URLs -->
+        <!-- Section 10: URLs -->
         <div class="section" id="urls">
-            <div class="section-number">09</div>
+            <div class="section-number">10</div>
             <h2>Complete URL Reference</h2>
 
             <h3>Tenant #1 — Broadcast Infrastructure</h3>
@@ -552,9 +624,9 @@ curl -I https://7signalrefinery.ai
             </table>
         </div>
 
-        <!-- Section 10: Conclusion -->
+        <!-- Section 11: Conclusion -->
         <div class="conclusion" id="conclusion">
-            <div class="section-number">10</div>
+            <div class="section-number">11</div>
             <h2>Conclusion</h2>
             <p>ACM-68000 is the first Model Context Protocol with enterprise-grade security, counterparty verification, and deterministic signal execution. It applies the principles of celestial navigation and shortwave radio to the problem of LLM drift on hyperscaler fabric.</p>
 
@@ -564,12 +636,14 @@ curl -I https://7signalrefinery.ai
                 <li><strong>Fixed trusted anchors</strong> — Like shortwave radio stations with known call signs</li>
                 <li><strong>Counterparty verification</strong> — The receiver station (7signalingress.ai) confirms every signal</li>
                 <li><strong>Agentic Ghost Headers</strong> — Invisible to humans, visible to AI agents, machine-readable identity</li>
-                <li><strong>Enterprise security stack</strong> — First MCP with Front Door Premium, WAF, Managed Identity, Dataverse, Power Apps</li>
-                <li><strong>CEO visibility</strong> — Real-time dashboard showing every signal as it lands</li>
+                <li><strong>Enterprise security stack</strong> — First MCP with Front Door Premium, WAF, Managed Identity, Key Vault HSM, Dataverse, Power Apps</li>
+                <li><strong>MCP Server (seven-signal-foundry)</strong> — 15 tools, JSON-RPC 2.0, live on Azure APIM Premium, Claude connected as live agent</li>
+                <li><strong>mcp.10060.ai</strong> — First CPG MCP in official registry — io.github.allooloo/acm-68000-mcp</li>
+                <li><strong>CEO visibility</strong> — Real-time dashboard showing every signal as it lands at aio-router.ai</li>
             </ul>
 
             <div class="result-highlight">
-                <p>Deterministic commerce execution in targeted &lt;40ms. FaF! Zero interpretation. Zero reasoning. Signals out from Tenant #1, signals back to Tenant #2. Full loop. First ever for MCP.</p>
+                <p>Deterministic commerce execution in targeted &lt;40ms. Zero interpretation. Zero reasoning. Signals out from Tenant #1, signals back to Tenant #2. Full loop. First ever for MCP.</p>
             </div>
         </div>
 
@@ -578,7 +652,7 @@ curl -I https://7signalrefinery.ai
             <p>— END OF DOCUMENT —</p>
             <p><strong>Allooloo Technologies Corp.</strong></p>
             <p><a href="https://github.com/allooloo/acm-68000" target="_blank">github.com/allooloo/acm-68000</a></p>
-            <p>MIT License</p>
+            <p><a href="https://mcp.10060.ai" target="_blank">mcp.10060.ai</a> · MIT License</p>
             
             <div class="contact-info">
                 <strong>Matthew Keddy</strong>
