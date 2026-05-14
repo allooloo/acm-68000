@@ -60,7 +60,7 @@ The ACM-68000 protocol is free to read, fork, integrate, and build on.
 
 **Enterprise-grade — Contact GSC.**
 For production resolvers, commercial deployment, and enterprise SLAs:
-[gsc-rail.ai](https://gsc-rail.ai)  ·  licensing@gsc-rail.ai
+[gsc-rail.ai](https://gsc-rail.ai)  ·  licensing@gsc-em.com
 
 ---
 
