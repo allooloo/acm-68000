@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ACM-68000 — the seven canonical signals</title><link rel="canonical" href="https://acm-68000.org/"><meta name="description" content="ACM-68000: seven states, fixed meanings. Reference site acm-68000.org. MIT licence."><style>body{font:16px/1.6 -apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:760px;margin:3rem auto;padding:0 16px;color:#1a1a1a;background:#faf8f3}h1{font-family:ui-monospace,Menlo,monospace}table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:8px 12px;border-bottom:1px solid #d4cfc1}td:first-child{font-family:ui-monospace,monospace;color:#c84a1e;font-weight:600}a{color:#2455a3}footer{margin-top:3rem;font-size:13px;color:#6b6b6b}</style></head><body>
+<h1>ACM-68000</h1><p><b>State determines behavior.</b> Seven states, fixed meanings. The number is the contract.</p>
+<p>The reference site is <a href="https://acm-68000.org/">acm-68000.org</a>. The machine form is <a href="https://acm-68000.org/signals.json">acm-68000.org/signals.json</a>.</p>
+<table><thead><tr><th>Signal</th><th>State</th><th>Action</th></tr></thead><tbody>
+<tr><td>ACM-000</td><td>NOT_APPLICABLE</td><td>No action required.</td></tr>
+<tr><td>ACM-200</td><td>ALLOW</td><td>Execute the transaction.</td></tr>
+<tr><td>ACM-300</td><td>CONDITIONAL</td><td>Evaluate before proceeding.</td></tr>
+<tr><td>ACM-403</td><td>RESTRICT</td><td>Halt transaction.</td></tr>
+<tr><td>ACM-404</td><td>NOT_FOUND</td><td>Abort transaction.</td></tr>
+<tr><td>ACM-451</td><td>ESCALATE</td><td>Human-in-the-loop required.</td></tr>
+<tr><td>ACM-500</td><td>SYSTEM_ERROR</td><td>Retry or fallback.</td></tr>
+</tbody></table>
+<p>Specification: <a href="https://github.com/allooloo/acm-68000#readme">README</a> · Licence: <a href="https://github.com/allooloo/acm-68000/blob/main/LICENSE">MIT</a></p>
+<footer>© 2026 Agentic KG Holdings · reference operator · MIT licence</footer></body></html>
