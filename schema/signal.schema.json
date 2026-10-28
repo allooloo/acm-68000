@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://acm-68000.org/schema/signal.schema.json",
+  "title": "ACM-68000 signal",
+  "description": "One of the seven canonical signals of ACM-68000. Append-only, non-breaking, non-substitutable: a code keeps its meaning forever.",
+  "type": "object",
+  "required": ["code", "state", "action", "page"],
+  "additionalProperties": false,
+  "properties": {
+    "code": { "type": "string", "enum": ["ACM-000", "ACM-200", "ACM-300", "ACM-403", "ACM-404", "ACM-451", "ACM-500"], "description": "The signal code. The number is the contract." },
+    "state": { "type": "string", "enum": ["NOT_APPLICABLE", "ALLOW", "CONDITIONAL", "RESTRICT", "NOT_FOUND", "ESCALATE", "SYSTEM_ERROR"], "description": "The fixed state the code carries." },
+    "action": { "type": "string", "description": "What an agent does on this state." },
+    "page": { "type": "string", "format": "uri", "description": "The signal's own reference page (acm-<code>.org)." }
+  }
+}

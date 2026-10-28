@@ -1,20 +1,20 @@
 # ACM-68000 — the seven canonical signals
 
-**State determines behavior.** ACM-68000 is the base deterministic execution vocabulary for agentic commerce: seven states, fixed meanings, no scoring, ranking or narrative interpretation. An agent does not need to infer what a state means. The number is the contract.
+Reference site: **https://acm-68000.org/** — this repository is the signal protocol as a document. Operator: Allooloo Technologies Corp. Licence: MIT (see `LICENSE`).
 
-Reference site: **https://acm-68000.org/** (Agentic KG Holdings, reference operator). Licence: MIT (see `LICENSE`).
+**State determines behavior.** ACM-68000 is the base deterministic execution vocabulary for agentic commerce: seven states, fixed meanings, no scoring, ranking or narrative interpretation. An agent does not need to infer what a state means. The number is the contract.
 
 ## The seven signals
 
-| Signal | State | Action |
-|---|---|---|
-| ACM-000 | NOT_APPLICABLE | No action required. |
-| ACM-200 | ALLOW | Execute the transaction. |
-| ACM-300 | CONDITIONAL | Evaluate before proceeding. |
-| ACM-403 | RESTRICT | Halt transaction. |
-| ACM-404 | NOT_FOUND | Abort transaction. |
-| ACM-451 | ESCALATE | Human-in-the-loop required. |
-| ACM-500 | SYSTEM_ERROR | Retry or fallback. |
+| Signal | State | Action | Page |
+|---|---|---|---|
+| ACM-000 | NOT_APPLICABLE | No action required. | https://acm-000.org/ |
+| ACM-200 | ALLOW | Execute the transaction. | https://acm-200.org/ |
+| ACM-300 | CONDITIONAL | Evaluate before proceeding. | https://acm-300.org/ |
+| ACM-403 | RESTRICT | Halt transaction. | https://acm-403.org/ |
+| ACM-404 | NOT_FOUND | Abort transaction. | https://acm-404.org/ |
+| ACM-451 | ESCALATE | Human-in-the-loop required. | https://acm-451.org/ |
+| ACM-500 | SYSTEM_ERROR | Retry or fallback. | https://acm-500.org/ |
 
 ## Rules of the vocabulary
 
@@ -22,19 +22,15 @@ Reference site: **https://acm-68000.org/** (Agentic KG Holdings, reference opera
 2. **Non-breaking.** An agent written against today's seven keeps working against every later version.
 3. **Non-substitutable.** A code is never reused for a different state, and a state is never carried by a different code.
 4. **Deterministic.** The same inputs give the same signal. A signal carries a state, not an opinion.
-5. **Domain profiles apply, never redefine.** A domain (for example CPG-68000 for consumer packaged goods, or the issuer states on the Electronic Compliance Object pages) maps its situations onto these seven meanings; it does not change them.
+5. **Domain profiles apply, never redefine.** A domain — for example the issuer states on the Electronic Compliance Object pages (fr-eco.ai, de-eco.ai …) — maps its own conditions onto these seven; it never changes what a code means.
 
-## Machine form
+## Where the signals are served
 
-The signals of record, with their per-signal hosts, are served at https://acm-68000.org/signals.json. Every implementation names the code and the state together, for example:
+- Listed issuers: `get_signal` at **https://mcp.getissuer.ai/mcp** (the Allooloo door; one signed record per listed company, served from the issuer's own country) and on every market's Electronic Compliance Object page.
+- The jurisdiction layer the signals pair with: **https://sm-eco-10060.org/** (github.com/allooloo/sm-eco-10060).
+- Receipts for decisions cleared: **https://rco-a2a.ai/**.
 
-```json
-{ "signal": "ACM-404", "state": "NOT_FOUND" }
-```
+## Files
 
-## Implemented by
-
-- GreenCore Solutions Corp. — hubs (A2A Grocery, A2A Cosmetics, A2A Peptides) and gtinfetch.ai, under the CPG-68000 profile.
-- Allooloo Technologies Corp. — the Capital Markets Knowledge Graph nodes and the Electronic Compliance Object pages (https://allooloo.ai/markets): ACM-200 trading · ACM-403 halted · ACM-404 not on the register · ACM-451 read the filing.
-
-© 2026 Agentic KG Holdings · MIT licence. This repository restores the URL https://allooloo.github.io/acm-68000/ cited in the March 25 2026 release; the reference site is https://acm-68000.org/.
+- `signals.json` — the seven signals: code, state, action, page.
+- `schema/signal.schema.json` — the signal record's schema.

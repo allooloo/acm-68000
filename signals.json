@@ -1,0 +1,51 @@
+{
+  "protocol": "ACM-68000",
+  "standard": "https://acm-68000.org/",
+  "operator": "Allooloo Technologies Corp.",
+  "licence": "MIT",
+  "rule": "append-only · non-breaking · non-substitutable · deterministic",
+  "signals": [
+    {
+      "code": "ACM-000",
+      "state": "NOT_APPLICABLE",
+      "action": "No action required.",
+      "page": "https://acm-000.org/"
+    },
+    {
+      "code": "ACM-200",
+      "state": "ALLOW",
+      "action": "Execute the transaction.",
+      "page": "https://acm-200.org/"
+    },
+    {
+      "code": "ACM-300",
+      "state": "CONDITIONAL",
+      "action": "Evaluate before proceeding.",
+      "page": "https://acm-300.org/"
+    },
+    {
+      "code": "ACM-403",
+      "state": "RESTRICT",
+      "action": "Halt transaction.",
+      "page": "https://acm-403.org/"
+    },
+    {
+      "code": "ACM-404",
+      "state": "NOT_FOUND",
+      "action": "Abort transaction.",
+      "page": "https://acm-404.org/"
+    },
+    {
+      "code": "ACM-451",
+      "state": "ESCALATE",
+      "action": "Human-in-the-loop required.",
+      "page": "https://acm-451.org/"
+    },
+    {
+      "code": "ACM-500",
+      "state": "SYSTEM_ERROR",
+      "action": "Retry or fallback.",
+      "page": "https://acm-500.org/"
+    }
+  ]
+}
